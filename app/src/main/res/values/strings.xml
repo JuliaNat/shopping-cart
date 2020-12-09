@@ -3,4 +3,6 @@
     <string name="shopping_cart_loading">Shopping Cart</string>
     <string name="loading">Loading …</string>
     <string name="logo_description">Logo for app</string>
+    <string name="shopping_lists_headline">Shopping List(s):</string>
+    <string name="share_button_text">Share</string>
 </resources>
