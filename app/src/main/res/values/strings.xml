@@ -3,6 +3,20 @@
     <string name="shopping_cart_loading">Shopping Cart</string>
     <string name="loading">Loading …</string>
     <string name="logo_description">Logo for app</string>
-    <string name="shopping_lists_headline">Shopping List(s):</string>
+    <string name="shopping_lists_headline">Shopping Carts(s)</string>
     <string name="share_button_text">Share</string>
+    <string name="new_shopping_list">New</string>
+    <string name="cart_name">Cart name</string>
+    <string name="add_new_product">Add new product</string>
+    <string name="save_and_back">Save and back</string>
+    <string name="create_new_cart">Create new cart</string>
+    <string name="product_name">Product name</string>
+    <string name="weight">Weight</string>
+    <string-array name="nutritions_array">
+        <item>Kilogram</item>
+        <item>Gram</item>
+        <item>Pieces</item>
+        <item>Litre</item>
+        <item>Millilitre</item>
+    </string-array>
 </resources>
