@@ -15,30 +15,32 @@ import java.util.ArrayList;
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.myViewHolder> {
     private ArrayList<Cart> myDataSet;
     Context context;
+    OnCartClickListener myClickListener;
 
-    public RecyclerViewAdapter (Context cntx, ArrayList<Cart> crt){
+    public RecyclerViewAdapter (Context cntx, ArrayList<Cart> crt, OnCartClickListener listener){
         context = cntx;
         myDataSet = crt;
+        myClickListener = listener;
     }
 
-    public static class myViewHolder extends RecyclerView.ViewHolder {
+    public static class myViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView cartName;
+        OnCartClickListener clickListener;
 
-        public myViewHolder(@NonNull View view) {
+        public myViewHolder(@NonNull View view, OnCartClickListener listener) {
             super(view);
             cartName = (TextView) view.findViewById(R.id.shopping_cart_name);
-
-            // onListClickListener
-            view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Log.d("Custom Adapter", "Shopping Cart " + getAdapterPosition() + "clicked!!");
-                }
-            });
+            clickListener = listener;
+            view.setOnClickListener(this);
         }
 
         public TextView getTextView() {
             return cartName;
+        }
+
+        @Override
+        public void onClick(View v) {
+            clickListener.onCartClick(getAdapterPosition());
         }
     }
 
@@ -49,7 +51,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         View view = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.shopping_cart_list_item, viewGroup, false);
 
-        return new myViewHolder(view);
+        return new myViewHolder(view, myClickListener);
     }
 
     @Override
@@ -60,6 +62,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public int getItemCount() {
         return myDataSet.size();
+    }
+
+
+    public interface OnCartClickListener {
+        void onCartClick(int position);
     }
 
 }

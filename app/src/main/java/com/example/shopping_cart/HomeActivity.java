@@ -14,7 +14,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity implements RecyclerViewAdapter.OnCartClickListener {
     int LAUNCH_NEW_CART_ACTIVITY = 1;
     RecyclerView myRecyclerView;
     RecyclerViewAdapter myAdapter;
@@ -23,8 +23,6 @@ public class HomeActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Cart myFirstCart = new Cart();
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
@@ -41,13 +39,11 @@ public class HomeActivity extends AppCompatActivity {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         myRecyclerView.setLayoutManager(layoutManager);
 
-        myAdapter = new RecyclerViewAdapter(this, myCartList);
+        myAdapter = new RecyclerViewAdapter(this, myCartList, this);
         myRecyclerView.setAdapter(myAdapter);
-
-        myCartList.add(myFirstCart);
-        myAdapter.notifyDataSetChanged();
     }
 
+    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         TextView cartNameHome = (TextView) findViewById(R.id.shopping_cart_name);
@@ -59,13 +55,18 @@ public class HomeActivity extends AppCompatActivity {
                 shoppingCart.name = data.getStringExtra("cartNameValue");
                 myCartList.add(shoppingCart);
 
-                for(Cart cart:myCartList) {
-                    cartNameHome.setText(cart.name);
-                }
+                myAdapter.notifyDataSetChanged();
             }
             if(resultCode == Activity.RESULT_CANCELED) {
                 System.out.println("An Error has occured!");
             }
         }
+    }
+
+    @Override
+    public void onCartClick(int position) {
+        Intent onCartClick = new Intent(this, NewCartActivity.class);
+        onCartClick.putExtra("selectedCart", myCartList.get(position));
+        startActivityForResult(onCartClick, LAUNCH_NEW_CART_ACTIVITY);
     }
 }

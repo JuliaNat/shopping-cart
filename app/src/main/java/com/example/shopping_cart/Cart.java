@@ -1,6 +1,8 @@
 package com.example.shopping_cart;
 
-public class Cart {
+import java.io.Serializable;
+
+public class Cart implements Serializable {
     String name;
 
     public String getName() {
