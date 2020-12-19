@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -46,7 +45,6 @@ public class HomeActivity extends AppCompatActivity implements RecyclerViewAdapt
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        TextView cartNameHome = (TextView) findViewById(R.id.shopping_cart_name);
 
         if (requestCode == LAUNCH_NEW_CART_ACTIVITY) {
             if (resultCode == Activity.RESULT_OK) {
