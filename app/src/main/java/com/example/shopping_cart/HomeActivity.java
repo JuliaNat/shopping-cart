@@ -1,15 +1,15 @@
 package com.example.shopping_cart;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
@@ -48,8 +48,8 @@ public class HomeActivity extends AppCompatActivity implements RecyclerViewAdapt
         super.onActivityResult(requestCode, resultCode, data);
         TextView cartNameHome = (TextView) findViewById(R.id.shopping_cart_name);
 
-        if(requestCode == LAUNCH_NEW_CART_ACTIVITY) {
-            if(resultCode == Activity.RESULT_OK) {
+        if (requestCode == LAUNCH_NEW_CART_ACTIVITY) {
+            if (resultCode == Activity.RESULT_OK) {
                 Cart shoppingCart = new Cart();
 
                 shoppingCart.name = data.getStringExtra("cartNameValue");
@@ -57,7 +57,7 @@ public class HomeActivity extends AppCompatActivity implements RecyclerViewAdapt
 
                 myAdapter.notifyDataSetChanged();
             }
-            if(resultCode == Activity.RESULT_CANCELED) {
+            if (resultCode == Activity.RESULT_CANCELED) {
                 System.out.println("An Error has occured!");
             }
         }

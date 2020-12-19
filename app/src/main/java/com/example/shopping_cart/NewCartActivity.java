@@ -1,31 +1,63 @@
 package com.example.shopping_cart;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class NewCartActivity extends AppCompatActivity {
-    Button saveAndBack;
-    String cartName;
+    Button addNewProduct, saveAndBack;
     EditText cartNameInput;
+    String cartName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_cart);
 
-        saveAndBack = (Button) findViewById(R.id.save_and_back_button);
+
+
         cartNameInput = (EditText) findViewById(R.id.cart_name_input);
+        addNewProduct = (Button) findViewById(R.id.add_product_button);
+        saveAndBack = (Button) findViewById(R.id.save_and_back_button);
 
         if(getIntent().getSerializableExtra("selectedCart") != null) {
             Cart selected = (Cart) getIntent().getSerializableExtra("selectedCart");
             cartNameInput.setText(selected.name);
         }
+
+        addNewProduct.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
+                View popupView = inflater.inflate(R.layout.adding_new_product, null);
+
+                int width = LinearLayout.LayoutParams.WRAP_CONTENT;
+                int height = LinearLayout.LayoutParams.WRAP_CONTENT;
+                boolean focusable = true;
+                final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
+
+                popupWindow.showAtLocation(v, Gravity.CENTER, 0, 0);
+
+                popupView.setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View v, MotionEvent event) {
+                        popupWindow.dismiss();
+                        return true;
+                    }
+                });
+
+            }
+        });
 
         saveAndBack.setOnClickListener(new View.OnClickListener() {
             @Override
