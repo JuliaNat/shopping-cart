@@ -1,19 +1,16 @@
 package com.example.shopping_cart;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.LinearLayout;
-import android.widget.PopupWindow;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -31,6 +28,7 @@ public class NewCartActivity extends AppCompatActivity {
         addNewProduct = (Button) findViewById(R.id.add_product_button);
         saveAndBack = (Button) findViewById(R.id.save_and_back_button);
 
+
         if (getIntent().getSerializableExtra("selectedCart") != null) {
             Cart selected = (Cart) getIntent().getSerializableExtra("selectedCart");
             cartNameInput.setText(selected.name);
@@ -39,7 +37,51 @@ public class NewCartActivity extends AppCompatActivity {
         addNewProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LayoutInflater inflater = (LayoutInflater) getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+                AlertDialog.Builder builder = new AlertDialog.Builder(NewCartActivity.this);
+                final View newProductView = getLayoutInflater().inflate(R.layout.new_product, null);
+                builder.setTitle(getResources().getString(R.string.add_new_product));
+
+                final Spinner nutritionSpinner = (Spinner) newProductView.findViewById(R.id.nutrition_spinner);
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(NewCartActivity.this, android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.nutritions_array));
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                nutritionSpinner.setAdapter(adapter);
+
+                builder.setView(newProductView);
+
+                builder.setPositiveButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        EditText productName = newProductView.findViewById(R.id.product_name);
+                        EditText productWeight = newProductView.findViewById(R.id.product_weight);
+                        if (!nutritionSpinner.getSelectedItem().toString().equalsIgnoreCase("Einheit wählen…")) {
+                            Toast.makeText(NewCartActivity.this,
+                                    productName.getText().toString(),
+                                    Toast.LENGTH_SHORT)
+                                    .show();
+                            Toast.makeText(NewCartActivity.this,
+                                    productWeight.getText().toString(),
+                                    Toast.LENGTH_SHORT)
+                                    .show();
+                            Toast.makeText(NewCartActivity.this,
+                                    nutritionSpinner.getSelectedItem().toString(),
+                                    Toast.LENGTH_SHORT)
+                                    .show();
+                            dialog.dismiss();
+                        } else {
+
+                        }
+                    }
+                });
+
+                builder.setNegativeButton(getResources().getString(R.string.back), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+
+                // Leave this area for documentation
+              /*  LayoutInflater inflater = (LayoutInflater) getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);
                 View popupView = inflater.inflate(R.layout.new_product, null);
 
                 int width = LinearLayout.LayoutParams.WRAP_CONTENT;
@@ -49,7 +91,7 @@ public class NewCartActivity extends AppCompatActivity {
                 popupWindow.showAtLocation(v, Gravity.CENTER, 0, 0);
 
                 ImageButton closePopup = (ImageButton) popupView.findViewById(R.id.closing_button);
-                Spinner nutritionSpinner = (Spinner) findViewById(R.id.nutrition_spinner);
+                Spinner nutritionSpinner = (Spinner) popupView.findViewById(R.id.nutrition_spinner);
                 ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(NewCartActivity.this, R.array.nutritions_array, android.R.layout.simple_spinner_item);
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 nutritionSpinner.setAdapter(adapter);
@@ -67,7 +109,10 @@ public class NewCartActivity extends AppCompatActivity {
                         popupWindow.dismiss();
                         return true;
                     }
-                });
+                });*/
+
+                AlertDialog dialog = builder.create();
+                dialog.show();
             }
         });
 

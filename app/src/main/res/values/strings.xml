@@ -1,22 +1,25 @@
 <resources>
     <string name="app_name">shopping-cart</string>
-    <string name="shopping_cart_loading">Shopping Cart</string>
-    <string name="loading">Loading …</string>
-    <string name="logo_description">Logo for app</string>
-    <string name="shopping_lists_headline">Shopping Carts(s)</string>
-    <string name="share_button_text">Share</string>
-    <string name="new_shopping_list">New</string>
-    <string name="cart_name">Cart name</string>
-    <string name="add_new_product">Add new product</string>
-    <string name="save_and_back">Save and back</string>
-    <string name="create_new_cart">Create new cart</string>
-    <string name="product_name">Product name</string>
-    <string name="weight">Weight</string>
+    <string name="shopping_cart_loading">Einkaufswagen</string>
+    <string name="logo_description">Logo der App</string>
+    <string name="shopping_lists_headline">Einkaufswagen:</string>
+    <string name="share_button_text">Teilen</string>
+    <string name="new_shopping_list">Neu</string>
+    <string name="cart_name">Weihnachtsessen</string>
+    <string name="create_new_cart">Neuer Einkaufswagen:</string>
+    <string name="add_new_product">Neues Produkt hinzufügen</string>
+    <string name="save_and_back">Speichern und zurück</string>
+    <string name="product_name">Produktname</string>
+    <string name="weight">Gewicht/Anzahl</string>
+    <string name="milk">Milch</string>
+    <string name="ok">OK</string>
+    <string name="back">ZURÜCK</string>
     <string-array name="nutritions_array">
-        <item>Kilogram</item>
-        <item>Gram</item>
-        <item>Pieces</item>
-        <item>Litre</item>
-        <item>Millilitre</item>
+        <item>Einheit wählen…</item>
+        <item>Kilogramm</item>
+        <item>Gramm</item>
+        <item>Stück</item>
+        <item>Liter</item>
+        <item>Milliliter</item>
     </string-array>
 </resources>

@@ -1,79 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#F6F6F6"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent">
+    <EditText
+        android:id="@+id/product_name"
+        android:layout_width="245dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="44dp"
+        android:ems="10"
+        android:hint="@string/milk"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+    <EditText
+        android:id="@+id/product_weight"
+        android:layout_width="245dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="28dp"
+        android:ems="10"
+        android:hint="10"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/product_name" />
 
-            <View
-                android:id="@+id/view"
-                android:layout_width="0sp"
-                android:layout_height="0sp"
-                android:layout_weight="1" />
-
-            <ImageButton
-                android:id="@+id/closing_button"
-                android:layout_width="match_parent"
-                android:layout_height="58dp"
-                app:srcCompat="@drawable/ic_closing_icon"
-                tools:ignore="VectorDrawableCompat" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="409dp"
-            android:layout_height="451dp"
-            android:orientation="vertical">
-
-            <EditText
-                android:id="@+id/product_name_input"
-                android:layout_width="259dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10sp"
-                android:layout_marginLeft="10sp"
-                android:ems="10"
-                android:hint="@string/product_name" />
-
-            <EditText
-                android:id="@+id/product_weight_input"
-                android:layout_width="259dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10sp"
-                android:layout_marginTop="25sp"
-                android:layout_marginLeft="10sp"
-                android:ems="10"
-                android:hint="@string/weight" />
-
-            <Spinner
-                android:id="@+id/nutrition_spinner"
-                android:layout_width="259dp"
-                android:layout_height="43dp"
-                android:layout_marginStart="10sp"
-                android:layout_marginTop="25sp"
-                android:layout_marginLeft="10sp" />
-
-            <Button
-                android:id="@+id/button"
-                android:layout_width="238dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="25sp"
-                android:background="@color/colorAccent"
-                android:text="@string/add_new_product" />
-
-        </LinearLayout>
-
-    </LinearLayout>
-
+    <Spinner
+        android:id="@+id/nutrition_spinner"
+        android:layout_width="245dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="28dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/product_weight" />
 </androidx.constraintlayout.widget.ConstraintLayout>
