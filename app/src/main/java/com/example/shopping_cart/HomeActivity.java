@@ -55,6 +55,7 @@ public class HomeActivity extends AppCompatActivity implements RecyclerViewAdapt
 
                 myAdapter.notifyDataSetChanged();
             }
+            // TODO correct implemented error handling
             if (resultCode == Activity.RESULT_CANCELED) {
                 System.out.println("An Error has occured!");
             }

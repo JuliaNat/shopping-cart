@@ -10,14 +10,17 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import java.util.ArrayList;
 
 public class NewCartActivity extends AppCompatActivity {
     Button addNewProduct, saveAndBack;
     EditText cartNameInput;
     String cartName;
+
+    ArrayList<Product> myProductList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,22 +56,29 @@ public class NewCartActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         EditText productName = newProductView.findViewById(R.id.product_name);
                         EditText productWeight = newProductView.findViewById(R.id.product_weight);
-                        if (!nutritionSpinner.getSelectedItem().toString().equalsIgnoreCase("Einheit wählen…")) {
-                            Toast.makeText(NewCartActivity.this,
-                                    productName.getText().toString(),
-                                    Toast.LENGTH_SHORT)
-                                    .show();
-                            Toast.makeText(NewCartActivity.this,
-                                    productWeight.getText().toString(),
-                                    Toast.LENGTH_SHORT)
-                                    .show();
-                            Toast.makeText(NewCartActivity.this,
-                                    nutritionSpinner.getSelectedItem().toString(),
-                                    Toast.LENGTH_SHORT)
-                                    .show();
+
+                        if (!nutritionSpinner.getSelectedItem().toString().equalsIgnoreCase("Einheit wählen…") &&
+                                !productName.getText().toString().equalsIgnoreCase("") &&
+                                !productWeight.getText().toString().equalsIgnoreCase("")) {
+                            Product product = new Product();
+                            product.name = productName.getText().toString();
+                            product.weight = Double.parseDouble(productWeight.getText().toString());
+                            product.nutrition = nutritionSpinner.getSelectedItem().toString();
+
+                            myProductList.add(product);
                             dialog.dismiss();
                         } else {
-
+                            AlertDialog.Builder errorBuilder = new AlertDialog.Builder(NewCartActivity.this);
+                            errorBuilder.setTitle("Error");
+                            errorBuilder.setMessage("Bitte füllen Sie alle Felder aus");
+                            errorBuilder.setPositiveButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            });
+                            AlertDialog errorDialog = errorBuilder.create();
+                            errorDialog.show();
                         }
                     }
                 });
@@ -79,6 +89,9 @@ public class NewCartActivity extends AppCompatActivity {
                         dialog.dismiss();
                     }
                 });
+
+                AlertDialog dialog = builder.create();
+                dialog.show();
 
                 // Leave this area for documentation
               /*  LayoutInflater inflater = (LayoutInflater) getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);
@@ -111,8 +124,7 @@ public class NewCartActivity extends AppCompatActivity {
                     }
                 });*/
 
-                AlertDialog dialog = builder.create();
-                dialog.show();
+
             }
         });
 
