@@ -11,12 +11,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.myViewHolder> {
+public class ShoppingCartRecyclerViewAdapter extends RecyclerView.Adapter<ShoppingCartRecyclerViewAdapter.myViewHolder> {
     private ArrayList<Cart> myDataSet;
     Context context;
     OnCartClickListener myClickListener;
 
-    public RecyclerViewAdapter (Context cntx, ArrayList<Cart> crt, OnCartClickListener listener){
+    public ShoppingCartRecyclerViewAdapter(Context cntx, ArrayList<Cart> crt, OnCartClickListener listener){
         context = cntx;
         myDataSet = crt;
         myClickListener = listener;
@@ -28,7 +28,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         public myViewHolder(@NonNull View view, OnCartClickListener listener) {
             super(view);
-            cartName = (TextView) view.findViewById(R.id.shopping_cart_name);
+            cartName = view.findViewById(R.id.shopping_cart_name);
             clickListener = listener;
             view.setOnClickListener(this);
         }
@@ -44,8 +44,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
     // Create new views (invoked by the layout manager)
+    @NonNull
     @Override
-    public RecyclerViewAdapter.myViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
+    public ShoppingCartRecyclerViewAdapter.myViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         // baut custom layout shopping_cart_list_item.xml und bau damit die view zusammen
         View view = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.shopping_cart_list_item, viewGroup, false);

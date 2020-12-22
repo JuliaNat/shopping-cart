@@ -32,22 +32,32 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cart_headline" />
 
-    <Button
-        android:id="@+id/add_product_button"
-        android:layout_width="188dp"
-        android:layout_height="46dp"
-        android:layout_marginTop="32dp"
-        android:background="@color/colorAccent"
-        android:text="@string/add_new_product"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/productRecyclerView"
+        android:layout_width="357dp"
+        android:layout_height="302dp"
+        android:layout_marginTop="24dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.283"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cart_name_input" />
 
     <Button
+        android:id="@+id/add_product_button"
+        android:layout_width="302dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="28dp"
+        android:background="@color/colorAccent"
+        android:text="@string/add_new_product"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/productRecyclerView" />
+
+    <Button
         android:id="@+id/save_and_back_button"
-        android:layout_width="188dp"
-        android:layout_height="46dp"
+        android:layout_width="302dp"
+        android:layout_height="48dp"
         android:layout_marginTop="20dp"
         android:background="@color/colorPrimaryDark"
         android:text="@string/save_and_back"

@@ -1,8 +1,7 @@
 package com.example.shopping_cart;
 
 public class Product {
-    String name, nutrition;
-    double weight;
+    String name, nutrition, weight;
 
     public String getName() {
         return name;
@@ -20,11 +19,11 @@ public class Product {
         this.nutrition = nutrition;
     }
 
-    public double getWeight() {
+    public String getWeight() {
         return weight;
     }
 
-    public void setWeight(double weight) {
+    public void setWeight(String weight) {
         this.weight = weight;
     }
 }

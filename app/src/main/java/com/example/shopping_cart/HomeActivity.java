@@ -13,10 +13,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 
-public class HomeActivity extends AppCompatActivity implements RecyclerViewAdapter.OnCartClickListener {
+public class HomeActivity extends AppCompatActivity implements ShoppingCartRecyclerViewAdapter.OnCartClickListener {
     int LAUNCH_NEW_CART_ACTIVITY = 1;
     RecyclerView myRecyclerView;
-    RecyclerViewAdapter myAdapter;
+    ShoppingCartRecyclerViewAdapter myAdapter;
 
     ArrayList<Cart> myCartList = new ArrayList<>();
 
@@ -34,11 +34,11 @@ public class HomeActivity extends AppCompatActivity implements RecyclerViewAdapt
             }
         });
 
-        myRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        myRecyclerView = findViewById(R.id.cartRecyclerView);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         myRecyclerView.setLayoutManager(layoutManager);
 
-        myAdapter = new RecyclerViewAdapter(this, myCartList, this);
+        myAdapter = new ShoppingCartRecyclerViewAdapter(this, myCartList, this);
         myRecyclerView.setAdapter(myAdapter);
     }
 

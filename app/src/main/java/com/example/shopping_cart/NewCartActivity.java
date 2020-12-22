@@ -12,6 +12,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
@@ -20,6 +22,9 @@ public class NewCartActivity extends AppCompatActivity {
     EditText cartNameInput;
     String cartName;
 
+    RecyclerView myRecyclerView;
+    ProductListRecyclerViewAdapter myAdapter;
+
     ArrayList<Product> myProductList = new ArrayList<>();
 
     @Override
@@ -27,13 +32,20 @@ public class NewCartActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_cart);
 
-        cartNameInput = (EditText) findViewById(R.id.cart_name_input);
-        addNewProduct = (Button) findViewById(R.id.add_product_button);
-        saveAndBack = (Button) findViewById(R.id.save_and_back_button);
+        cartNameInput = findViewById(R.id.cart_name_input);
+        addNewProduct = findViewById(R.id.add_product_button);
+        saveAndBack = findViewById(R.id.save_and_back_button);
 
+        myRecyclerView = findViewById(R.id.productRecyclerView);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        myRecyclerView.setLayoutManager(layoutManager);
+
+        myAdapter = new ProductListRecyclerViewAdapter(this, myProductList);
+        myRecyclerView.setAdapter(myAdapter);
 
         if (getIntent().getSerializableExtra("selectedCart") != null) {
             Cart selected = (Cart) getIntent().getSerializableExtra("selectedCart");
+            assert selected != null;
             cartNameInput.setText(selected.name);
         }
 
@@ -44,7 +56,7 @@ public class NewCartActivity extends AppCompatActivity {
                 final View newProductView = getLayoutInflater().inflate(R.layout.new_product, null);
                 builder.setTitle(getResources().getString(R.string.add_new_product));
 
-                final Spinner nutritionSpinner = (Spinner) newProductView.findViewById(R.id.nutrition_spinner);
+                final Spinner nutritionSpinner = newProductView.findViewById(R.id.nutrition_spinner);
                 ArrayAdapter<String> adapter = new ArrayAdapter<>(NewCartActivity.this, android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.nutritions_array));
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 nutritionSpinner.setAdapter(adapter);
@@ -62,10 +74,11 @@ public class NewCartActivity extends AppCompatActivity {
                                 !productWeight.getText().toString().equalsIgnoreCase("")) {
                             Product product = new Product();
                             product.name = productName.getText().toString();
-                            product.weight = Double.parseDouble(productWeight.getText().toString());
+                            product.weight = productWeight.getText().toString();
                             product.nutrition = nutritionSpinner.getSelectedItem().toString();
 
                             myProductList.add(product);
+                            myAdapter.notifyDataSetChanged();
                             dialog.dismiss();
                         } else {
                             AlertDialog.Builder errorBuilder = new AlertDialog.Builder(NewCartActivity.this);
