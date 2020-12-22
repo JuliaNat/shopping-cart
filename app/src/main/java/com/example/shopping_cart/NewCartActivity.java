@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class NewCartActivity extends AppCompatActivity {
+public class NewCartActivity extends AppCompatActivity implements ProductListRecyclerViewAdapter.OnCanClickListener {
     Button addNewProduct, saveAndBack;
     EditText cartNameInput;
     String cartName;
@@ -36,11 +36,12 @@ public class NewCartActivity extends AppCompatActivity {
         addNewProduct = findViewById(R.id.add_product_button);
         saveAndBack = findViewById(R.id.save_and_back_button);
 
+        // Recycler View for product list
         myRecyclerView = findViewById(R.id.productRecyclerView);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         myRecyclerView.setLayoutManager(layoutManager);
 
-        myAdapter = new ProductListRecyclerViewAdapter(this, myProductList);
+        myAdapter = new ProductListRecyclerViewAdapter(this, myProductList, this);
         myRecyclerView.setAdapter(myAdapter);
 
         if (getIntent().getSerializableExtra("selectedCart") != null) {
@@ -153,5 +154,12 @@ public class NewCartActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    @Override
+    public void onCanClick(int position) {
+        Product p = myProductList.get(position);
+        myProductList.remove(p);
+        myAdapter.notifyDataSetChanged();
     }
 }
