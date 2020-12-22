@@ -1,11 +1,12 @@
-package com.example.shopping_cart;
+package com.example.shopping_cart.core.entities;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Cart implements Serializable {
-    String cartID;
-    String name;
+    public String cartID;
+    public String name;
+    public ArrayList<Product> cartProducts;
 
     public ArrayList<Product> getCartProducts() {
         return cartProducts;
@@ -14,8 +15,6 @@ public class Cart implements Serializable {
     public void setCartProducts(ArrayList<Product> cartProducts) {
         this.cartProducts = cartProducts;
     }
-
-    ArrayList<Product> cartProducts;
 
     public String getName() {
         return name;

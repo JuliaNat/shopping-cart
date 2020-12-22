@@ -1,10 +1,12 @@
-package com.example.shopping_cart;
-
-import androidx.appcompat.app.AppCompatActivity;
+package com.example.shopping_cart.ui.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.shopping_cart.R;
 
 public class MainActivity extends AppCompatActivity {
 

@@ -1,9 +1,9 @@
-package com.example.shopping_cart;
+package com.example.shopping_cart.core.entities;
 
 import java.io.Serializable;
 
 public class Product implements Serializable {
-    String name, nutrition, weight;
+    public String name, nutrition, weight;
 
     public String getName() {
         return name;

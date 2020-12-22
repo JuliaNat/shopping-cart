@@ -1,4 +1,4 @@
-package com.example.shopping_cart;
+package com.example.shopping_cart.ui.activities;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -14,6 +14,11 @@ import android.widget.Spinner;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.shopping_cart.R;
+import com.example.shopping_cart.core.entities.Cart;
+import com.example.shopping_cart.core.entities.Product;
+import com.example.shopping_cart.ui.adapter.ProductListRecyclerViewAdapter;
 
 import java.util.ArrayList;
 import java.util.UUID;

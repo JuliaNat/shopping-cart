@@ -1,4 +1,4 @@
-package com.example.shopping_cart;
+package com.example.shopping_cart.ui.activities;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -9,6 +9,10 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.shopping_cart.R;
+import com.example.shopping_cart.core.entities.Cart;
+import com.example.shopping_cart.ui.adapter.ShoppingCartRecyclerViewAdapter;
 
 import java.util.ArrayList;
 
@@ -52,27 +56,26 @@ public class HomeActivity extends AppCompatActivity implements ShoppingCartRecyc
                 shoppingCart = (Cart) data.getSerializableExtra("newCart");
                 ArrayList<String> ids = new ArrayList<>();
 
-                for(Cart cart:myCartList) {
+                for (Cart cart : myCartList) {
                     ids.add(cart.cartID);
                 }
 
-                if(ids.contains(shoppingCart.cartID)) {
-                    for(int i=0; i < ids.size(); i++) {
-                       if(ids.get(i).equals(shoppingCart.cartID)) {
-                           myCartList.remove(i);
-                           myCartList.add(shoppingCart);
-                       }
+                if (ids.contains(shoppingCart.cartID)) {
+                    for (int i = 0; i < ids.size(); i++) {
+                        if (ids.get(i).equals(shoppingCart.cartID)) {
+                            myCartList.remove(i);
+                            myCartList.add(shoppingCart);
+                        }
                     }
                 } else {
                     myCartList.add(shoppingCart);
                 }
-
-                myAdapter.notifyDataSetChanged();
             }
-            // TODO correct implemented error handling
-            if (resultCode == Activity.RESULT_CANCELED) {
-                System.out.println("An Error has occured!");
-            }
+            myAdapter.notifyDataSetChanged();
+        }
+        // TODO correct implemented error handling
+        if (resultCode == Activity.RESULT_CANCELED) {
+            System.out.println("An Error has occured!");
         }
     }
 
