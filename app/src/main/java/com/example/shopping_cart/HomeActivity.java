@@ -48,10 +48,24 @@ public class HomeActivity extends AppCompatActivity implements ShoppingCartRecyc
 
         if (requestCode == LAUNCH_NEW_CART_ACTIVITY) {
             if (resultCode == Activity.RESULT_OK) {
-                Cart shoppingCart = new Cart();
+                Cart shoppingCart;
+                shoppingCart = (Cart) data.getSerializableExtra("newCart");
+                ArrayList<String> ids = new ArrayList<>();
 
-                shoppingCart.name = data.getStringExtra("cartNameValue");
-                myCartList.add(shoppingCart);
+                for(Cart cart:myCartList) {
+                    ids.add(cart.cartID);
+                }
+
+                if(ids.contains(shoppingCart.cartID)) {
+                    for(int i=0; i < ids.size(); i++) {
+                       if(ids.get(i).equals(shoppingCart.cartID)) {
+                           myCartList.remove(i);
+                           myCartList.add(shoppingCart);
+                       }
+                    }
+                } else {
+                    myCartList.add(shoppingCart);
+                }
 
                 myAdapter.notifyDataSetChanged();
             }

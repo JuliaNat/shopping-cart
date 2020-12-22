@@ -16,11 +16,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 public class NewCartActivity extends AppCompatActivity implements ProductListRecyclerViewAdapter.OnCanClickListener {
     Button addNewProduct, saveAndBack;
     EditText cartNameInput;
-    String cartName;
 
     RecyclerView myRecyclerView;
     ProductListRecyclerViewAdapter myAdapter;
@@ -46,8 +46,8 @@ public class NewCartActivity extends AppCompatActivity implements ProductListRec
 
         if (getIntent().getSerializableExtra("selectedCart") != null) {
             Cart selected = (Cart) getIntent().getSerializableExtra("selectedCart");
-            assert selected != null;
             cartNameInput.setText(selected.name);
+            myProductList.addAll(selected.cartProducts);
         }
 
         addNewProduct.setOnClickListener(new View.OnClickListener() {
@@ -145,10 +145,19 @@ public class NewCartActivity extends AppCompatActivity implements ProductListRec
         saveAndBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cartName = cartNameInput.getText().toString();
+                Cart newCart = new Cart();
+                if(getIntent().getSerializableExtra("selectedCart") != null) {
+                    Cart selectedCart = (Cart) getIntent().getSerializableExtra("selectedCart");
+                    newCart.cartID = selectedCart.cartID;
+                } else {
+                    newCart.cartID = String.valueOf(UUID.randomUUID());
+                }
+
+                newCart.name = cartNameInput.getText().toString();
+                newCart.cartProducts = myProductList;
 
                 Intent newCartReturn = new Intent(getApplicationContext(), HomeActivity.class);
-                newCartReturn.putExtra("cartNameValue", cartName);
+                newCartReturn.putExtra("newCart", newCart);
 
                 setResult(Activity.RESULT_OK, newCartReturn);
                 finish();
