@@ -46,6 +46,8 @@ public class HomeActivity extends AppCompatActivity implements ShoppingCartRecyc
 
         myAdapter = new ShoppingCartRecyclerViewAdapter(this, myCartList, this);
         myRecyclerView.setAdapter(myAdapter);
+
+        viewModel.getCartsFromDatabase();
     }
 
     @Override
