@@ -19,6 +19,7 @@ import com.example.shopping_cart.R;
 import com.example.shopping_cart.core.entities.Cart;
 import com.example.shopping_cart.core.entities.Product;
 import com.example.shopping_cart.ui.adapter.ProductListRecyclerViewAdapter;
+import com.example.shopping_cart.viewModel.NewCartActivityViewModel;
 
 import java.util.ArrayList;
 import java.util.UUID;
@@ -31,6 +32,8 @@ public class NewCartActivity extends AppCompatActivity implements ProductListRec
     ProductListRecyclerViewAdapter myAdapter;
 
     ArrayList<Product> myProductList = new ArrayList<>();
+
+    NewCartActivityViewModel viewModel = new NewCartActivityViewModel();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -142,8 +145,6 @@ public class NewCartActivity extends AppCompatActivity implements ProductListRec
                         return true;
                     }
                 });*/
-
-
             }
         });
 
@@ -160,6 +161,9 @@ public class NewCartActivity extends AppCompatActivity implements ProductListRec
 
                 newCart.name = cartNameInput.getText().toString();
                 newCart.cartProducts = myProductList;
+
+                // Write saved cart in database
+                viewModel.writeInDatabase(newCart);
 
                 Intent newCartReturn = new Intent(getApplicationContext(), HomeActivity.class);
                 newCartReturn.putExtra("newCart", newCart);

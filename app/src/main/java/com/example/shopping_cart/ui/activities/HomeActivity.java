@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.shopping_cart.R;
 import com.example.shopping_cart.core.entities.Cart;
 import com.example.shopping_cart.ui.adapter.ShoppingCartRecyclerViewAdapter;
+import com.example.shopping_cart.viewModel.HomeActivityViewModel;
 
 import java.util.ArrayList;
 
@@ -21,8 +22,9 @@ public class HomeActivity extends AppCompatActivity implements ShoppingCartRecyc
     int LAUNCH_NEW_CART_ACTIVITY = 1;
     RecyclerView myRecyclerView;
     ShoppingCartRecyclerViewAdapter myAdapter;
-
     ArrayList<Cart> myCartList = new ArrayList<>();
+
+    HomeActivityViewModel viewModel = new HomeActivityViewModel();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,22 +56,7 @@ public class HomeActivity extends AppCompatActivity implements ShoppingCartRecyc
             if (resultCode == Activity.RESULT_OK) {
                 Cart shoppingCart;
                 shoppingCart = (Cart) data.getSerializableExtra("newCart");
-                ArrayList<String> ids = new ArrayList<>();
-
-                for (Cart cart : myCartList) {
-                    ids.add(cart.cartID);
-                }
-
-                if (ids.contains(shoppingCart.cartID)) {
-                    for (int i = 0; i < ids.size(); i++) {
-                        if (ids.get(i).equals(shoppingCart.cartID)) {
-                            myCartList.remove(i);
-                            myCartList.add(shoppingCart);
-                        }
-                    }
-                } else {
-                    myCartList.add(shoppingCart);
-                }
+                viewModel.updateOrCreateCartList(myCartList, shoppingCart);
             }
             myAdapter.notifyDataSetChanged();
         }
