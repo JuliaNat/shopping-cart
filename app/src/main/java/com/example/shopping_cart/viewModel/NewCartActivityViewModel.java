@@ -1,12 +1,12 @@
 package com.example.shopping_cart.viewModel;
 
 import com.example.shopping_cart.core.entities.Cart;
-import com.example.shopping_cart.core.repository.Firebase;
+import com.example.shopping_cart.core.repository.Firestore;
 
 public class NewCartActivityViewModel {
-    Firebase myDatabase = new Firebase();
+    Firestore myDatabase = new Firestore();
 
     public void writeInDatabase(Cart cart) {
-        myDatabase.addCartToDatabase(cart);
+        myDatabase.addDataToFirestore(cart);
     }
 }

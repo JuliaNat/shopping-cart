@@ -1,13 +1,24 @@
 package com.example.shopping_cart.viewModel;
 
 import com.example.shopping_cart.core.entities.Cart;
-import com.example.shopping_cart.core.repository.Firebase;
+import com.example.shopping_cart.core.repository.Firestore;
 
 import java.util.ArrayList;
 
-public class HomeActivityViewModel {
-    Firebase myDatabase = new Firebase();
+// import com.example.shopping_cart.core.repository.Firebase;
 
+public class HomeActivityViewModel implements Firestore.OnReadDataComplete {
+    Firestore firestore = new Firestore();
+    ArrayList<Cart> allCartsFromDatabase = new ArrayList<>();
+
+    // sobald vm erstellt wird, wird die init methode aufgerufen, welche ja alle daten holt
+    public HomeActivityViewModel() {
+        initializeViewModel();
+    }
+
+    public ArrayList<Cart> getAllCartsFromDatabase() {
+        return allCartsFromDatabase;
+    }
 
     public void updateOrCreateCartList(ArrayList<Cart> myCartList, Cart shoppingCart) {
         ArrayList<String> ids = new ArrayList<>();
@@ -28,9 +39,13 @@ public class HomeActivityViewModel {
         }
     }
 
-    public void getCartsFromDatabase() {
-        // ArrayList<Cart> cartsFromDatabase = myDatabase.readDataFromDatabase();
-        // System.out.println("###############: " + cartsFromDatabase);
+   public void initializeViewModel() {
+        // Jetzt hab ich alle Daten von der Datenbank!
+        firestore.gettingDataFromFirestore(this);
     }
 
+    @Override
+    public void getCartData(ArrayList<Cart> databaseCarts) {
+       allCartsFromDatabase.addAll(databaseCarts);
+    }
 }
