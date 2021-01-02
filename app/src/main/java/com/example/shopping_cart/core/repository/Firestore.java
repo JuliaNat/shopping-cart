@@ -40,7 +40,7 @@ public class Firestore {
                 });
     }
 
-    public void gettingDataFromFirestore(final OnReadDataComplete callbackOnRead) {
+    public void gettingDataFromFirestore(final OnReadDataComplete callbackOnRead, final ArrayList<Cart> localCarts) {
         final ArrayList<Cart> allCartsFromDatabase = new ArrayList<>();
         collectionReference.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -50,7 +50,7 @@ public class Firestore {
                         allCartsFromDatabase.add(doc.toObject(Cart.class));
                     }
                 }
-                callbackOnRead.getCartData(allCartsFromDatabase);
+                callbackOnRead.getCartData(allCartsFromDatabase, localCarts);
             }
         });
     }
@@ -73,6 +73,6 @@ public class Firestore {
     }
     // Callback method declared
     public interface OnReadDataComplete {
-        void getCartData(ArrayList<Cart> databaseCarts);
+        void getCartData(ArrayList<Cart> databaseCarts, ArrayList<Cart> localCarts);
     }
 }

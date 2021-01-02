@@ -1,12 +1,15 @@
 package com.example.shopping_cart.ui.activities;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -20,16 +23,21 @@ import java.util.ArrayList;
 
 public class HomeActivity extends AppCompatActivity implements ShoppingCartRecyclerViewAdapter.OnCartClickListener, ShoppingCartRecyclerViewAdapter.OnCanClickListener {
     int LAUNCH_NEW_CART_ACTIVITY = 1;
+    Context context;
     RecyclerView myRecyclerView;
     ShoppingCartRecyclerViewAdapter myAdapter;
     ArrayList<Cart> myCartList = new ArrayList<>();
-
-    HomeActivityViewModel viewModel = new HomeActivityViewModel();
+    HomeActivityViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        context = this;
+
+        viewModel = ViewModelProviders.of(this).get(HomeActivityViewModel.class);
+        viewModel.getCartLiveData().observe(this, cartUpdateObserver);
+        viewModel.fetchAllCarts(myCartList);
 
         Button createNewCart = findViewById(R.id.new_cart_button);
         createNewCart.setOnClickListener(new View.OnClickListener() {
@@ -41,15 +49,16 @@ public class HomeActivity extends AppCompatActivity implements ShoppingCartRecyc
         });
 
         myRecyclerView = findViewById(R.id.cartRecyclerView);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-        myRecyclerView.setLayoutManager(layoutManager);
-
-        myAdapter = new ShoppingCartRecyclerViewAdapter(this, myCartList, this, this);
-        myRecyclerView.setAdapter(myAdapter);
-
-        myCartList.addAll(viewModel.getAllCartsFromDatabase());
-        myAdapter.notifyDataSetChanged();
     }
+
+    Observer<ArrayList<Cart>> cartUpdateObserver = new Observer<ArrayList<Cart>>() {
+        @Override
+        public void onChanged(ArrayList<Cart> cartArrayList) {
+            myAdapter = new ShoppingCartRecyclerViewAdapter(context, myCartList, HomeActivity.this, HomeActivity.this);
+            myRecyclerView.setLayoutManager(new LinearLayoutManager(HomeActivity.this));
+            myRecyclerView.setAdapter(myAdapter);
+        }
+    };
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -61,7 +70,6 @@ public class HomeActivity extends AppCompatActivity implements ShoppingCartRecyc
                 shoppingCart = (Cart) data.getSerializableExtra("newCart");
                 viewModel.updateOrCreateCartList(myCartList, shoppingCart);
             }
-            myAdapter.notifyDataSetChanged();
         }
         // TODO correct implemented error handling
         if (resultCode == Activity.RESULT_CANCELED) {

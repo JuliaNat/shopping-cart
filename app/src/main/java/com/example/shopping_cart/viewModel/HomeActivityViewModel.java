@@ -1,5 +1,8 @@
 package com.example.shopping_cart.viewModel;
 
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
+
 import com.example.shopping_cart.core.entities.Cart;
 import com.example.shopping_cart.core.repository.Firestore;
 
@@ -7,9 +10,10 @@ import java.util.ArrayList;
 
 // import com.example.shopping_cart.core.repository.Firebase;
 
-public class HomeActivityViewModel implements Firestore.OnReadDataComplete {
+public class HomeActivityViewModel extends ViewModel implements Firestore.OnReadDataComplete{
     Firestore firestore = new Firestore();
     ArrayList<Cart> allCartsFromDatabase = new ArrayList<>();
+    MutableLiveData<ArrayList<Cart>> cartLiveData;
 
     // sobald vm erstellt wird, wird die init methode aufgerufen, welche ja alle daten holt
     public HomeActivityViewModel() {
@@ -18,6 +22,10 @@ public class HomeActivityViewModel implements Firestore.OnReadDataComplete {
 
     public ArrayList<Cart> getAllCartsFromDatabase() {
         return allCartsFromDatabase;
+    }
+
+    public MutableLiveData<ArrayList<Cart>> getCartLiveData() {
+        return cartLiveData;
     }
 
     public void updateOrCreateCartList(ArrayList<Cart> myCartList, Cart shoppingCart) {
@@ -37,6 +45,7 @@ public class HomeActivityViewModel implements Firestore.OnReadDataComplete {
         } else {
             myCartList.add(shoppingCart);
         }
+        cartLiveData.setValue(myCartList);
     }
 
     public void deleteCartFromDatabase(String cartName) {
@@ -44,12 +53,17 @@ public class HomeActivityViewModel implements Firestore.OnReadDataComplete {
     }
 
    public void initializeViewModel() {
-        // Jetzt hab ich alle Daten von der Datenbank!
-        firestore.gettingDataFromFirestore(this);
+        cartLiveData = new MutableLiveData<>();
+    }
+
+    public void fetchAllCarts(ArrayList<Cart> localCarts) {
+        firestore.gettingDataFromFirestore(this, localCarts);
     }
 
     @Override
-    public void getCartData(ArrayList<Cart> databaseCarts) {
+    public void getCartData(ArrayList<Cart> databaseCarts, ArrayList<Cart> localCarts) {
        allCartsFromDatabase.addAll(databaseCarts);
+       localCarts.addAll(databaseCarts);
+       cartLiveData.setValue(allCartsFromDatabase);
     }
 }
