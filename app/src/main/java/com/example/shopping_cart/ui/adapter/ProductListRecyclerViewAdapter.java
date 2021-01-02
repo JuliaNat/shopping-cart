@@ -18,37 +18,34 @@ import java.util.ArrayList;
 public class ProductListRecyclerViewAdapter extends RecyclerView.Adapter<ProductListRecyclerViewAdapter.myViewHolder> {
     private ArrayList<Product> myDataSet;
     Context context;
-    OnCanClickListener myClickListener;
 
-    public ProductListRecyclerViewAdapter(Context cntx, ArrayList<Product> prdct, OnCanClickListener listener){
+    OnCanClickListener onCanClickListener;
+
+    public ProductListRecyclerViewAdapter(Context cntx, ArrayList<Product> prdct, OnCanClickListener onCanClickListener){
         context = cntx;
         myDataSet = prdct;
-        myClickListener = listener;
+        this.onCanClickListener = onCanClickListener;
     }
 
     public static class myViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         TextView productName, productWeight, productNutrition;
         ImageView deleteCan;
-        OnCanClickListener clickListener;
+        OnCanClickListener canClickListener;
 
-        public myViewHolder(@NonNull View view, OnCanClickListener listener) {
+        public myViewHolder(@NonNull View view, OnCanClickListener onCanClickListener) {
             super(view);
             productName = view.findViewById(R.id.new_product_name);
             productWeight = view.findViewById(R.id.new_product_weight);
             productNutrition = view.findViewById(R.id.new_product_nutrition);
             deleteCan = view.findViewById(R.id.deleteProductImage);
 
-            clickListener = listener;
+            canClickListener = onCanClickListener;
             deleteCan.setOnClickListener(this);
-        }
-
-        public TextView getTextView() {
-            return productName;
         }
 
         @Override
         public void onClick(View v) {
-            clickListener.onCanClick(getAdapterPosition());
+            canClickListener.onCanClick(getAdapterPosition());
         }
     }
 
@@ -60,7 +57,7 @@ public class ProductListRecyclerViewAdapter extends RecyclerView.Adapter<Product
         View view = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.product_list_item, viewGroup, false);
 
-        return new myViewHolder(view, myClickListener);
+        return new myViewHolder(view, onCanClickListener);
     }
 
     @Override

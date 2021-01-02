@@ -18,7 +18,7 @@ import com.example.shopping_cart.viewModel.HomeActivityViewModel;
 import java.util.ArrayList;
 
 
-public class HomeActivity extends AppCompatActivity implements ShoppingCartRecyclerViewAdapter.OnCartClickListener {
+public class HomeActivity extends AppCompatActivity implements ShoppingCartRecyclerViewAdapter.OnCartClickListener, ShoppingCartRecyclerViewAdapter.OnCanClickListener {
     int LAUNCH_NEW_CART_ACTIVITY = 1;
     RecyclerView myRecyclerView;
     ShoppingCartRecyclerViewAdapter myAdapter;
@@ -44,7 +44,7 @@ public class HomeActivity extends AppCompatActivity implements ShoppingCartRecyc
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         myRecyclerView.setLayoutManager(layoutManager);
 
-        myAdapter = new ShoppingCartRecyclerViewAdapter(this, myCartList, this);
+        myAdapter = new ShoppingCartRecyclerViewAdapter(this, myCartList, this, this);
         myRecyclerView.setAdapter(myAdapter);
 
         myCartList.addAll(viewModel.getAllCartsFromDatabase());
@@ -74,5 +74,13 @@ public class HomeActivity extends AppCompatActivity implements ShoppingCartRecyc
         Intent onCartClick = new Intent(this, NewCartActivity.class);
         onCartClick.putExtra("selectedCart", myCartList.get(position));
         startActivityForResult(onCartClick, LAUNCH_NEW_CART_ACTIVITY);
+    }
+
+    @Override
+    public void onCanClick(int position) {
+        Cart c = myCartList.get(position);
+        myCartList.remove(c);
+        viewModel.deleteCartFromDatabase(c.name);
+        myAdapter.notifyDataSetChanged();
     }
 }

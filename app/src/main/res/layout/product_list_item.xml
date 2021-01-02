@@ -55,12 +55,12 @@
             android:id="@+id/deleteProductImage"
             android:layout_width="wrap_content"
             android:clickable="true"
+            android:focusable="true"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1"
             app:srcCompat="@android:drawable/ic_menu_delete"
-            android:contentDescription="@string/delete_button_desc"
-            android:focusable="true" />
+            android:contentDescription="@string/delete_button_desc" />
 
     </LinearLayout>
 

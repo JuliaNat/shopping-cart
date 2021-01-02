@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -17,32 +18,41 @@ import java.util.ArrayList;
 public class ShoppingCartRecyclerViewAdapter extends RecyclerView.Adapter<ShoppingCartRecyclerViewAdapter.myViewHolder> {
     private ArrayList<Cart> myDataSet;
     Context context;
-    OnCartClickListener myClickListener;
 
-    public ShoppingCartRecyclerViewAdapter(Context cntx, ArrayList<Cart> crt, OnCartClickListener listener){
+    OnCartClickListener onCartClickListener;
+    OnCanClickListener onCanClickListener;
+
+    public ShoppingCartRecyclerViewAdapter(Context cntx, ArrayList<Cart> crt, OnCartClickListener onCartListener, OnCanClickListener onCanListener){
         context = cntx;
         myDataSet = crt;
-        myClickListener = listener;
+        onCartClickListener = onCartListener;
+        onCanClickListener = onCanListener;
     }
 
     public static class myViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView cartName;
-        OnCartClickListener clickListener;
+        ImageView deleteCan;
+        OnCartClickListener cartClickListener;
+        OnCanClickListener canClickListener;
 
-        public myViewHolder(@NonNull View view, OnCartClickListener listener) {
+        public myViewHolder(@NonNull View view, OnCartClickListener onCartClickListener, OnCanClickListener onCanClickListener) {
             super(view);
             cartName = view.findViewById(R.id.shopping_cart_name);
-            clickListener = listener;
-            view.setOnClickListener(this);
-        }
+            deleteCan = view.findViewById(R.id.deleteCart);
 
-        public TextView getTextView() {
-            return cartName;
+            cartClickListener = onCartClickListener;
+            canClickListener = onCanClickListener;
+            deleteCan.setOnClickListener(this);
+            cartName.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View v) {
-            clickListener.onCartClick(getAdapterPosition());
+            if(v == cartName) {
+                cartClickListener.onCartClick(getAdapterPosition());
+            } else if (v == deleteCan) {
+                canClickListener.onCanClick(getAdapterPosition());
+            }
         }
     }
 
@@ -54,7 +64,7 @@ public class ShoppingCartRecyclerViewAdapter extends RecyclerView.Adapter<Shoppi
         View view = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.shopping_cart_list_item, viewGroup, false);
 
-        return new myViewHolder(view, myClickListener);
+        return new myViewHolder(view, onCartClickListener, onCanClickListener);
     }
 
     @Override
@@ -70,6 +80,10 @@ public class ShoppingCartRecyclerViewAdapter extends RecyclerView.Adapter<Shoppi
 
     public interface OnCartClickListener {
         void onCartClick(int position);
+    }
+
+    public interface OnCanClickListener {
+        void onCanClick(int position);
     }
 
 }

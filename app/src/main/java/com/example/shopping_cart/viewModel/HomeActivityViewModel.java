@@ -39,6 +39,10 @@ public class HomeActivityViewModel implements Firestore.OnReadDataComplete {
         }
     }
 
+    public void deleteCartFromDatabase(String cartName) {
+        firestore.deleteDataFromFirestore(cartName);
+    }
+
    public void initializeViewModel() {
         // Jetzt hab ich alle Daten von der Datenbank!
         firestore.gettingDataFromFirestore(this);

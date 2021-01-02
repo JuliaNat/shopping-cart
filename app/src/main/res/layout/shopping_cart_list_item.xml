@@ -16,6 +16,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="10sp"
+            android:clickable="true"
+            android:focusable="true"
             android:textSize="20sp" />
 
         <ImageView
@@ -24,14 +26,17 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10sp"
             android:layout_gravity="center"
-            app:srcCompat="@android:drawable/ic_menu_share" />
+            app:srcCompat="@android:drawable/ic_menu_share"
+            android:layout_marginStart="10sp" />
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/deleteCart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20sp"
             android:layout_gravity="center"
+            android:clickable="true"
+            android:focusable="true"
             app:srcCompat="@android:drawable/ic_menu_delete" />
     </LinearLayout>
 
