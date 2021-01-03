@@ -17,6 +17,8 @@
     <string name="delete">Löschen</string>
     <string name="checked">Abgehakt</string>
     <string name="delete_button_desc">Löschen button</string>
+    <string name="show_old_products">Bereits gekaufte Artikel anzeigen</string>
+    <string name="abort">Abbrechen</string>
     <string-array name="nutritions_array">
         <item>Einheit wählen…</item>
         <item>Kilogramm</item>

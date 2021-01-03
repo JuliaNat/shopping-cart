@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 public class NewCartActivity extends AppCompatActivity implements ProductListRecyclerViewAdapter.OnCanClickListener {
-    Button addNewProduct, saveAndBack;
+    Button addNewProduct, saveAndBack, abort, showProductList;
     EditText cartNameInput;
 
     RecyclerView myRecyclerView;
@@ -43,6 +43,8 @@ public class NewCartActivity extends AppCompatActivity implements ProductListRec
         cartNameInput = findViewById(R.id.cart_name_input);
         addNewProduct = findViewById(R.id.add_product_button);
         saveAndBack = findViewById(R.id.save_and_back_button);
+        abort = findViewById(R.id.abort_button);
+        showProductList = findViewById(R.id.open_product_list_button);
 
         // Recycler View for product list
         myRecyclerView = findViewById(R.id.productRecyclerView);
@@ -114,37 +116,6 @@ public class NewCartActivity extends AppCompatActivity implements ProductListRec
 
                 AlertDialog dialog = builder.create();
                 dialog.show();
-
-                // Leave this area for documentation
-              /*  LayoutInflater inflater = (LayoutInflater) getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);
-                View popupView = inflater.inflate(R.layout.new_product, null);
-
-                int width = LinearLayout.LayoutParams.WRAP_CONTENT;
-                int height = LinearLayout.LayoutParams.WRAP_CONTENT;
-                boolean focusable = true;
-                final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
-                popupWindow.showAtLocation(v, Gravity.CENTER, 0, 0);
-
-                ImageButton closePopup = (ImageButton) popupView.findViewById(R.id.closing_button);
-                Spinner nutritionSpinner = (Spinner) popupView.findViewById(R.id.nutrition_spinner);
-                ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(NewCartActivity.this, R.array.nutritions_array, android.R.layout.simple_spinner_item);
-                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                nutritionSpinner.setAdapter(adapter);
-
-                closePopup.setOnClickListener(new Button.OnClickListener(){
-                   @Override
-                   public void onClick(View v) {
-                       popupWindow.dismiss();
-                   }
-                });
-
-                popupView.setOnTouchListener(new View.OnTouchListener() {
-                    @Override
-                    public boolean onTouch(View v, MotionEvent event) {
-                        popupWindow.dismiss();
-                        return true;
-                    }
-                });*/
             }
         });
 
@@ -170,6 +141,13 @@ public class NewCartActivity extends AppCompatActivity implements ProductListRec
 
                 setResult(Activity.RESULT_OK, newCartReturn);
                 finish();
+            }
+        });
+
+        abort.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(NewCartActivity.this, HomeActivity.class));
             }
         });
     }
