@@ -38,8 +38,8 @@
 
     <Button
         android:id="@+id/new_cart_button"
-        android:layout_width="122dp"
-        android:layout_height="39dp"
+        android:layout_width="159dp"
+        android:layout_height="48dp"
         android:layout_marginTop="32dp"
         android:background="@color/colorAccent"
         android:text="@string/new_shopping_list"

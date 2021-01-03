@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/ShoppingCartTheme">
-        <activity android:name=".ui.activities.NewCartActivity"/>
+        <activity android:name=".ui.activities.OldProductListActivity"></activity>
+        <activity android:name=".ui.activities.NewCartActivity" />
         <activity android:name=".ui.activities.HomeActivity" />
         <activity android:name=".ui.activities.MainActivity">
             <intent-filter>

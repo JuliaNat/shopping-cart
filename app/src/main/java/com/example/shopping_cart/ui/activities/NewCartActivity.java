@@ -80,7 +80,7 @@ public class NewCartActivity extends AppCompatActivity implements ProductListRec
                         EditText productName = newProductView.findViewById(R.id.product_name);
                         EditText productWeight = newProductView.findViewById(R.id.product_weight);
 
-                        if (!nutritionSpinner.getSelectedItem().toString().equalsIgnoreCase("Einheit wählen…") &&
+                        if (!nutritionSpinner.getSelectedItem().toString().equalsIgnoreCase(getResources().getString(R.string.select_unit)) &&
                                 !productName.getText().toString().equalsIgnoreCase("") &&
                                 !productWeight.getText().toString().equalsIgnoreCase("")) {
                             Product product = new Product();
@@ -93,8 +93,8 @@ public class NewCartActivity extends AppCompatActivity implements ProductListRec
                             dialog.dismiss();
                         } else {
                             AlertDialog.Builder errorBuilder = new AlertDialog.Builder(NewCartActivity.this);
-                            errorBuilder.setTitle("Error");
-                            errorBuilder.setMessage("Bitte füllen Sie alle Felder aus");
+                            errorBuilder.setTitle(getResources().getString(R.string.error));
+                            errorBuilder.setMessage(getResources().getString(R.string.all_information_needed));
                             errorBuilder.setPositiveButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {

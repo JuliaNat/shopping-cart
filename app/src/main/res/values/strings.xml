@@ -18,6 +18,9 @@
     <string name="checked">Abgehakt</string>
     <string name="delete_button_desc">Löschen button</string>
     <string name="show_old_products">Bereits gekaufte Artikel anzeigen</string>
+    <string name="all_information_needed">Bitte füllen Sie alle Felder aus</string>
+    <string name="select_unit">Einheit wählen …</string>
+    <string name="error">Error</string>
     <string name="abort">Abbrechen</string>
     <string-array name="nutritions_array">
         <item>Einheit wählen…</item>
