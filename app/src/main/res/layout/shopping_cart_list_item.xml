@@ -1,43 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.widget.RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:gravity="center_vertical">
+    android:layout_margin="15dp"
+    tools:context=".ui.activities.OldProductListActivity">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
+    <TextView
+        android:id="@+id/shopping_cart_name"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:textSize="20sp" />
 
-        <TextView
-            android:id="@+id/shopping_cart_name"
-            android:layout_width="246dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="10sp"
-            android:clickable="true"
-            android:focusable="true"
-            android:textSize="20sp" />
+    <ImageView
+        android:id="@+id/shareCart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@id/deleteCart"
+        android:layout_marginRight="15sp"
+        app:srcCompat="@android:drawable/ic_menu_share" />
 
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10sp"
-            android:layout_gravity="center"
-            app:srcCompat="@android:drawable/ic_menu_share"
-            android:layout_marginStart="10sp" />
+    <ImageView
+        android:id="@+id/deleteCart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_alignParentRight="true"
+        app:srcCompat="@android:drawable/ic_menu_delete" />
 
-        <ImageView
-            android:id="@+id/deleteCart"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20sp"
-            android:layout_gravity="center"
-            android:clickable="true"
-            android:focusable="true"
-            app:srcCompat="@android:drawable/ic_menu_delete" />
-    </LinearLayout>
-
-</FrameLayout>
+</android.widget.RelativeLayout>

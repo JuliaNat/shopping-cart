@@ -18,10 +18,10 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
-        android:layout_width="357dp"
-        android:layout_height="302dp"
-        android:layout_marginTop="24dp"
-        android:layout_below="@id/old_products_headline"/>
+        android:layout_width="match_parent"
+        android:layout_height="392dp"
+        android:layout_below="@id/old_products_headline"
+        android:layout_marginTop="24dp" />
 
     <Button
         android:id="@+id/save_and_back_button"
@@ -30,7 +30,7 @@
         android:layout_marginTop="40dp"
         android:background="@color/colorAccent"
         android:text="@string/save_and_back"
-        android:layout_below="@id/recyclerView" />
+        android:layout_above="@id/abort_button" />
 
     <Button
         android:id="@+id/abort_button"
@@ -40,7 +40,7 @@
         android:background="@color/colorPrimaryDark"
         android:textColor="@color/colorPrimary"
         android:text="@string/abort"
-        android:layout_below="@id/save_and_back_button"/>
+        android:layout_alignParentBottom="true"/>
 
 
 </android.widget.RelativeLayout>

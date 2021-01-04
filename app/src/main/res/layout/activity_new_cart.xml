@@ -29,8 +29,8 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/product_recycler_view"
-        android:layout_width="357dp"
-        android:layout_height="302dp"
+        android:layout_width="match_parent"
+        android:layout_height="375dp"
         android:layout_below="@id/cart_name_input"
         android:layout_marginTop="24dp" />
 
@@ -38,25 +38,25 @@
         android:id="@+id/add_product_button"
         android:layout_width="159dp"
         android:layout_height="48dp"
-        android:layout_below="@id/product_recycler_view"
         android:background="@color/colorAccent"
+        android:layout_above="@id/save_and_back_button"
         android:text="@string/add_new_product" />
 
     <Button
         android:id="@+id/open_product_list_button"
         android:layout_width="159dp"
         android:layout_height="48dp"
-        android:layout_below="@id/product_recycler_view"
-        android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
+        android:layout_above="@id/abort_button"
         android:background="@color/colorAccent"
-        android:text="@string/show_old_products" />
+        android:text="@string/show_old_products"
+        android:layout_alignParentEnd="true" />
 
     <Button
         android:id="@+id/save_and_back_button"
         android:layout_width="159dp"
         android:layout_height="48dp"
-        android:layout_below="@id/add_product_button"
+        android:layout_alignParentBottom="true"
         android:layout_marginTop="15dp"
         android:background="@color/colorPrimaryDark"
         android:text="@string/save_and_back"
@@ -66,7 +66,7 @@
         android:id="@+id/abort_button"
         android:layout_width="159dp"
         android:layout_height="48dp"
-        android:layout_below="@id/open_product_list_button"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_marginTop="15dp"
