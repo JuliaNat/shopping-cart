@@ -22,6 +22,7 @@
     <string name="select_unit">Einheit wählen …</string>
     <string name="error">Error</string>
     <string name="abort">Abbrechen</string>
+    <string name="old_products_headline">Bereits gekaufte Artikel:</string>
     <string-array name="nutritions_array">
         <item>Einheit wählen…</item>
         <item>Kilogramm</item>
