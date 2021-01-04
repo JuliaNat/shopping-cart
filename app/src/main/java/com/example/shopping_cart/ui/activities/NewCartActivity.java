@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -25,6 +26,7 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 public class NewCartActivity extends AppCompatActivity implements ProductListRecyclerViewAdapter.OnCanClickListener {
+    int LAUNCH_OLD_PRODUCT_LIST_ACTIVITY = 1;
     Button addNewProduct, saveAndBack, abort, showProductList;
     EditText cartNameInput;
 
@@ -32,7 +34,6 @@ public class NewCartActivity extends AppCompatActivity implements ProductListRec
     ProductListRecyclerViewAdapter myAdapter;
 
     ArrayList<Product> myProductList = new ArrayList<>();
-
     NewCartActivityViewModel viewModel = new NewCartActivityViewModel();
 
     @Override
@@ -119,10 +120,19 @@ public class NewCartActivity extends AppCompatActivity implements ProductListRec
             }
         });
 
+        showProductList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent showProducts = new Intent(getApplicationContext(), OldProductListActivity.class);
+                startActivityForResult(showProducts, LAUNCH_OLD_PRODUCT_LIST_ACTIVITY);
+            }
+        });
+
         saveAndBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Cart newCart = new Cart();
+                ArrayList<Product> products = new ArrayList<>();
                 if(getIntent().getSerializableExtra("selectedCart") != null) {
                     Cart selectedCart = (Cart) getIntent().getSerializableExtra("selectedCart");
                     newCart.cartID = selectedCart.cartID;
@@ -132,9 +142,10 @@ public class NewCartActivity extends AppCompatActivity implements ProductListRec
 
                 newCart.name = cartNameInput.getText().toString();
                 newCart.cartProducts = myProductList;
+                products = myProductList;
 
-                // Write saved cart in database
-                viewModel.writeInDatabase(newCart);
+                viewModel.writeCartInDatabase(newCart);
+                viewModel.writeProductsInDatabase(products);
 
                 Intent newCartReturn = new Intent(getApplicationContext(), HomeActivity.class);
                 newCartReturn.putExtra("newCart", newCart);
@@ -150,6 +161,21 @@ public class NewCartActivity extends AppCompatActivity implements ProductListRec
                 startActivity(new Intent(NewCartActivity.this, HomeActivity.class));
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == LAUNCH_OLD_PRODUCT_LIST_ACTIVITY) {
+            if (resultCode == Activity.RESULT_OK) {
+
+            }
+        }
+        // TODO error handling
+        if (resultCode == Activity.RESULT_CANCELED) {
+            System.out.println("Error while starting old product list activity");
+        }
     }
 
     @Override

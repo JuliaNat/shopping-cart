@@ -5,6 +5,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 import com.example.shopping_cart.core.entities.Cart;
+import com.example.shopping_cart.core.entities.Product;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -25,6 +26,24 @@ public class Firestore {
     public void addDataToFirestore(Cart cart) {
         firestoreDatabase.collection("carts").document(cart.name)
                 .set(cart)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d(TAG, "DocumentSnapshot successfully written!");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Error writing document", e);
+
+                    }
+                });
+    }
+
+    public void addProductToFirestore(Product product) {
+        firestoreDatabase.collection("products").document(product.name)
+                .set(product)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
