@@ -1,56 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<android.widget.RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="15dp"
     tools:context=".ui.activities.OldProductListActivity">
 
     <TextView
-        android:id="@+id/cart_headline"
+        android:id="@+id/old_products_headline"
         android:layout_width="335dp"
         android:layout_height="39dp"
-        android:layout_marginTop="40dp"
-        android:text="Bereits gekaufte Artikel:"
+        android:text="@string/old_products_headline"
         android:textColor="@color/colorAccent"
         android:textSize="30sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.223"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="20dp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="357dp"
         android:layout_height="302dp"
         android:layout_marginTop="24dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.314"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cart_headline" />
+        android:layout_below="@id/old_products_headline"/>
 
     <Button
         android:id="@+id/save_and_back_button"
-        android:layout_width="357dp"
+        android:layout_width="match_parent"
         android:layout_height="49dp"
         android:layout_marginTop="40dp"
         android:background="@color/colorAccent"
         android:text="@string/save_and_back"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerView" />
+        android:layout_below="@id/recyclerView" />
 
     <Button
         android:id="@+id/abort_button"
-        android:layout_width="357dp"
+        android:layout_width="match_parent"
         android:layout_height="49dp"
         android:layout_marginTop="24dp"
         android:background="@color/colorPrimaryDark"
         android:textColor="@color/colorPrimary"
         android:text="@string/abort"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/save_and_back_button" />
+        android:layout_below="@id/save_and_back_button"/>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</android.widget.RelativeLayout>
