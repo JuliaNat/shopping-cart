@@ -4,7 +4,7 @@
     <string name="logo_description">Logo der App</string>
     <string name="shopping_lists_headline">Einkaufswagen:</string>
     <string name="share_button_text">Teilen</string>
-    <string name="new_shopping_list">Neu</string>
+    <string name="new_shopping_list">Neuen Einkaufswagen anlegen</string>
     <string name="cart_name">Weihnachtsessen</string>
     <string name="create_new_cart">Neuer Einkaufswagen:</string>
     <string name="add_new_product">Neues Produkt hinzufügen</string>

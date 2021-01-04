@@ -47,7 +47,7 @@ public class NewCartActivity extends AppCompatActivity implements ProductListRec
         showProductList = findViewById(R.id.open_product_list_button);
 
         // Recycler View for product list
-        myRecyclerView = findViewById(R.id.productRecyclerView);
+        myRecyclerView = findViewById(R.id.product_recycler_view);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         myRecyclerView.setLayoutManager(layoutManager);
 
