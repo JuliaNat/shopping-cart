@@ -46,7 +46,15 @@ public class OldProductListRecyclerViewAdapter extends RecyclerView.Adapter<OldP
 
     @Override
     public void onBindViewHolder(@NonNull myViewHolder viewHolder, final int position) {
-        viewHolder.oldProductName.setText(myDataSet.get(position).name);
+        String oldProductName = new StringBuilder()
+                .append(myDataSet.get(position).name)
+                .append(" ")
+                .append(myDataSet.get(position).weight)
+                .append(" ")
+                .append(myDataSet.get(position).nutrition)
+                .toString();
+
+        viewHolder.oldProductName.setText(oldProductName);
     }
 
     @Override

@@ -10,7 +10,7 @@ public class NewCartActivityViewModel {
     Firestore myDatabase = new Firestore();
 
     public void writeCartInDatabase(Cart cart) {
-        myDatabase.addDataToFirestore(cart);
+        myDatabase.addCartToFirestore(cart);
     }
 
     public void writeProductsInDatabase(ArrayList<Product> products) {

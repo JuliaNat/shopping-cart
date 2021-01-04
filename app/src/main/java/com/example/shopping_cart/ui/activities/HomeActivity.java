@@ -25,9 +25,10 @@ public class HomeActivity extends AppCompatActivity implements ShoppingCartRecyc
     int LAUNCH_NEW_CART_ACTIVITY = 1;
     Context context;
     RecyclerView myRecyclerView;
-    ShoppingCartRecyclerViewAdapter myAdapter;
     ArrayList<Cart> myCartList = new ArrayList<>();
+
     HomeActivityViewModel viewModel;
+    ShoppingCartRecyclerViewAdapter myAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

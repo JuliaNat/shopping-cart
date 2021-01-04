@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 // import com.example.shopping_cart.core.repository.Firebase;
 
-public class HomeActivityViewModel extends ViewModel implements Firestore.OnReadDataComplete{
+public class HomeActivityViewModel extends ViewModel implements Firestore.OnReadCartsComplete {
     Firestore firestore = new Firestore();
     ArrayList<Cart> allCartsFromDatabase = new ArrayList<>();
     MutableLiveData<ArrayList<Cart>> cartLiveData;
@@ -57,7 +57,7 @@ public class HomeActivityViewModel extends ViewModel implements Firestore.OnRead
     }
 
     public void fetchAllCarts(ArrayList<Cart> localCarts) {
-        firestore.gettingDataFromFirestore(this, localCarts);
+        firestore.gettingCartsFromFirestore(this, localCarts);
     }
 
     @Override

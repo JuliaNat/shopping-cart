@@ -10,7 +10,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -21,9 +20,8 @@ import static android.content.ContentValues.TAG;
 
 public class Firestore {
     FirebaseFirestore firestoreDatabase = FirebaseFirestore.getInstance();
-    CollectionReference collectionReference = firestoreDatabase.collection("carts");
 
-    public void addDataToFirestore(Cart cart) {
+    public void addCartToFirestore(Cart cart) {
         firestoreDatabase.collection("carts").document(cart.name)
                 .set(cart)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -59,9 +57,9 @@ public class Firestore {
                 });
     }
 
-    public void gettingDataFromFirestore(final OnReadDataComplete callbackOnRead, final ArrayList<Cart> localCarts) {
+    public void gettingCartsFromFirestore(final OnReadCartsComplete callbackOnRead, final ArrayList<Cart> localCarts) {
         final ArrayList<Cart> allCartsFromDatabase = new ArrayList<>();
-        collectionReference.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        firestoreDatabase.collection("carts").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if(task.isSuccessful()) {
@@ -74,8 +72,23 @@ public class Firestore {
         });
     }
 
+    public void gettingProductsFromFirestore(final OnReadProductsComplete callbackOnRead, final ArrayList<Product> localProducts) {
+        final ArrayList<Product> allProductsFromDatabase = new ArrayList<>();
+        firestoreDatabase.collection("products").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()) {
+                    for (QueryDocumentSnapshot doc:task.getResult()) {
+                        allProductsFromDatabase.add(doc.toObject(Product.class));
+                    }
+                }
+                callbackOnRead.getProductData(allProductsFromDatabase, localProducts);
+            }
+        });
+    }
+
     public void deleteDataFromFirestore(String cartName) {
-        collectionReference.document(cartName)
+        firestoreDatabase.collection("carts").document(cartName)
                 .delete()
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
@@ -90,8 +103,15 @@ public class Firestore {
                     }
                 });
     }
-    // Callback method declared
-    public interface OnReadDataComplete {
+
+    // Callback methods declared
+    public interface OnReadCartsComplete {
         void getCartData(ArrayList<Cart> databaseCarts, ArrayList<Cart> localCarts);
     }
+
+    public interface OnReadProductsComplete {
+        void getProductData(ArrayList<Product> databaseProducts, ArrayList<Product> localProducts);
+    }
+
+
 }
