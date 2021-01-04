@@ -2,7 +2,7 @@
     <string name="app_name">shopping-cart</string>
     <string name="shopping_cart_loading">Einkaufswagen</string>
     <string name="logo_description">Logo der App</string>
-    <string name="shopping_lists_headline">Einkaufswagen:</string>
+    <string name="shopping_lists_headline">Einkaufswägen:</string>
     <string name="share_button_text">Teilen</string>
     <string name="new_shopping_list">Neuen Einkaufswagen anlegen</string>
     <string name="cart_name">Weihnachtsessen</string>
@@ -19,7 +19,7 @@
     <string name="delete_button_desc">Löschen button</string>
     <string name="show_old_products">Bereits gekaufte Artikel anzeigen</string>
     <string name="all_information_needed">Bitte füllen Sie alle Felder aus</string>
-    <string name="select_unit">Einheit wählen …</string>
+    <string name="select_unit">Einheit wählen…</string>
     <string name="error">Error</string>
     <string name="abort">Abbrechen</string>
     <string name="old_products_headline">Bereits gekaufte Artikel:</string>
