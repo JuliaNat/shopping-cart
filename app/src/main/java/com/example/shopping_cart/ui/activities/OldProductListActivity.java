@@ -1,7 +1,10 @@
 package com.example.shopping_cart.ui.activities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
@@ -18,6 +21,7 @@ import java.util.ArrayList;
 
 public class OldProductListActivity extends AppCompatActivity {
     Context context;
+    Button abort;
     RecyclerView myRecyclerView;
     ArrayList<Product> myProductList = new ArrayList<>();
 
@@ -29,12 +33,20 @@ public class OldProductListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_old_product_list);
         context = this;
+        abort = findViewById(R.id.abort_button);
 
         viewModel = ViewModelProviders.of(this).get(OldProductListActivityViewModel.class);
         viewModel.getProductLiveData().observe(this, productUpdateObserver);
         viewModel.fetchAllProducts(myProductList);
 
         myRecyclerView = findViewById(R.id.recyclerView);
+
+        abort.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(OldProductListActivity.this, NewCartActivity.class));
+            }
+        });
     }
 
     Observer<ArrayList<Product>> productUpdateObserver = new Observer<ArrayList<Product>>() {

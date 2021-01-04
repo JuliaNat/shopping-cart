@@ -25,12 +25,14 @@ public class OldProductListRecyclerViewAdapter extends RecyclerView.Adapter<OldP
     }
 
     public static class myViewHolder extends RecyclerView.ViewHolder {
-        TextView oldProductName;
+        TextView oldProductName, oldProductWeight, oldProductNutrition;
         CheckBox productSelected;
 
         public myViewHolder(View view) {
             super(view);
             oldProductName = view.findViewById(R.id.old_product_name);
+            oldProductWeight = view.findViewById(R.id.old_product_weight);
+            oldProductNutrition = view.findViewById(R.id.old_product_nutrition);
             productSelected = view.findViewById(R.id.select_old_product);
         }
     }
@@ -46,15 +48,9 @@ public class OldProductListRecyclerViewAdapter extends RecyclerView.Adapter<OldP
 
     @Override
     public void onBindViewHolder(@NonNull myViewHolder viewHolder, final int position) {
-        String oldProductName = new StringBuilder()
-                .append(myDataSet.get(position).name)
-                .append(" ")
-                .append(myDataSet.get(position).weight)
-                .append(" ")
-                .append(myDataSet.get(position).nutrition)
-                .toString();
-
-        viewHolder.oldProductName.setText(oldProductName);
+        viewHolder.oldProductName.setText(myDataSet.get(position).name);
+        viewHolder.oldProductWeight.setText(myDataSet.get(position).weight);
+        viewHolder.oldProductNutrition.setText(myDataSet.get(position).nutrition);
     }
 
     @Override
