@@ -13,26 +13,41 @@ public class OldProductListActivityViewModel extends ViewModel implements Firest
     ArrayList<Product> allProductsFromDatabase = new ArrayList<>();
     MutableLiveData<ArrayList<Product>> productLiveData;
 
+    /**
+     * Called when the ViewModel is created
+     */
     public OldProductListActivityViewModel() {
         initializeViewModel();
     }
 
-    public ArrayList<Product> getAllProductsFromDatabase() {
-        return allProductsFromDatabase;
-    }
-
+    /**
+     * For observing changes and updating afterwards
+     *
+     * @return list of products
+     */
     public MutableLiveData<ArrayList<Product>> getProductLiveData() {
         return productLiveData;
     }
-
+    /**
+     * Creates new MutableLiveData on initialization of the ViewModel
+     */
     public void initializeViewModel() {
         productLiveData = new MutableLiveData<>();
     }
 
+    /**
+     * Fetching all products from the Cloud Firestore
+     * @param localProducts List to be written to
+     */
     public void fetchAllProducts(ArrayList<Product> localProducts) {
         firestore.gettingProductsFromFirestore(this, localProducts);
     }
 
+    /**
+     * When the callback is executed, all the products in the database are written to the variables provided for this purpose
+     * @param databaseProducts products from the database to process them
+     * @param localProducts products from the database to be able to use them in the recycler view
+     */
     @Override
     public void getProductData(ArrayList<Product> databaseProducts, ArrayList<Product> localProducts) {
         allProductsFromDatabase.addAll(databaseProducts);
