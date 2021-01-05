@@ -23,7 +23,8 @@
     <string name="error">Error</string>
     <string name="abort">Abbrechen</string>
     <string name="old_products_headline">Bereits gekaufte Artikel:</string>
-    <string-array name="nutritions_array">
+    <string name="ten">10</string>
+    <string-array name="unit_array">
         <item>Einheit wählen…</item>
         <item>Kilogramm</item>
         <item>Gramm</item>

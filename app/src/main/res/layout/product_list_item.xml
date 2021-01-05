@@ -33,7 +33,7 @@
                 android:layout_marginLeft="7sp" />
 
             <TextView
-                android:id="@+id/new_product_nutrition"
+                android:id="@+id/new_product_unit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="7sp"

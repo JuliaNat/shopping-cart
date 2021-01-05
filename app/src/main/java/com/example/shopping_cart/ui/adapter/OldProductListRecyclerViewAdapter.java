@@ -24,35 +24,49 @@ public class OldProductListRecyclerViewAdapter extends RecyclerView.Adapter<OldP
         myDataSet = prdct;
     }
 
+    /**
+     * Provides a reference to the type of views that are used
+     */
     public static class myViewHolder extends RecyclerView.ViewHolder {
-        TextView oldProductName, oldProductWeight, oldProductNutrition;
+        TextView oldProductName, oldProductWeight, oldProductUnit;
         CheckBox productSelected;
 
-        public myViewHolder(View view) {
+        public myViewHolder(@NonNull View view) {
             super(view);
             oldProductName = view.findViewById(R.id.old_product_name);
             oldProductWeight = view.findViewById(R.id.old_product_weight);
-            oldProductNutrition = view.findViewById(R.id.old_product_nutrition);
+            oldProductUnit = view.findViewById(R.id.old_product_unit);
             productSelected = view.findViewById(R.id.select_old_product);
         }
     }
 
+    // Creates new views invoked by the layout manager
     @NonNull
     @Override
-    public myViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
+    public OldProductListRecyclerViewAdapter.myViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
+        // Creates a new view which defines the UI of the old_product_list_item
         View view = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.old_product_list_item, viewGroup, false);
 
         return new myViewHolder(view);
     }
 
+
+    /**
+     * Replaces the content of a view invoked by the layout manager
+     * @param viewHolder individual element in the list defined by myViewHolder object
+     * @param position gets data from the dataset to set the text for the view
+     */
     @Override
-    public void onBindViewHolder(@NonNull myViewHolder viewHolder, final int position) {
+    public void onBindViewHolder(myViewHolder viewHolder, final int position) {
         viewHolder.oldProductName.setText(myDataSet.get(position).name);
         viewHolder.oldProductWeight.setText(myDataSet.get(position).weight);
-        viewHolder.oldProductNutrition.setText(myDataSet.get(position).nutrition);
+        viewHolder.oldProductUnit.setText(myDataSet.get(position).unit);
     }
 
+    /**
+     * @return size of the dataset invoked by the layout manager
+     */
     @Override
     public int getItemCount() {
         return myDataSet.size();

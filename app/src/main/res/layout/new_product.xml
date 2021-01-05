@@ -9,7 +9,6 @@
         android:layout_width="245dp"
         android:layout_height="55dp"
         android:layout_marginTop="44dp"
-        android:ems="10"
         android:hint="@string/milk"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
@@ -21,15 +20,13 @@
         android:layout_width="245dp"
         android:layout_height="55dp"
         android:layout_marginTop="28dp"
-        android:ems="10"
-        android:hint="10"
-        android:inputType="textPersonName"
+        android:hint="@string/ten"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/product_name" />
 
     <Spinner
-        android:id="@+id/nutrition_spinner"
+        android:id="@+id/unit_spinner"
         android:layout_width="245dp"
         android:layout_height="55dp"
         android:layout_marginTop="28dp"

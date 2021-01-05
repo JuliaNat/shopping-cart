@@ -3,7 +3,7 @@ package com.example.shopping_cart.core.entities;
 import java.io.Serializable;
 
 public class Product implements Serializable {
-    public String name, nutrition, weight;
+    public String name, unit, weight;
 
     public String getName() {
         return name;
@@ -13,12 +13,12 @@ public class Product implements Serializable {
         this.name = name;
     }
 
-    public String getNutrition() {
-        return nutrition;
+    public String getUnit() {
+        return unit;
     }
 
-    public void setNutrition(String nutrition) {
-        this.nutrition = nutrition;
+    public void setUnit(String unit) {
+        this.unit = unit;
     }
 
     public String getWeight() {

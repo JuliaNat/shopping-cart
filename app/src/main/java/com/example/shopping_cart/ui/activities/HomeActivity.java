@@ -36,10 +36,14 @@ public class HomeActivity extends AppCompatActivity implements ShoppingCartRecyc
         setContentView(R.layout.activity_home);
         context = this;
 
+        // ViewModelProviders depricated!
         viewModel = ViewModelProviders.of(this).get(HomeActivityViewModel.class);
         viewModel.getCartLiveData().observe(this, cartUpdateObserver);
         viewModel.fetchAllCarts(myCartList);
 
+        myRecyclerView = findViewById(R.id.cart_recycler_view);
+
+        // OnClickListener which opens a new activity to create a new cart
         Button createNewCart = findViewById(R.id.new_cart_button);
         createNewCart.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,10 +52,11 @@ public class HomeActivity extends AppCompatActivity implements ShoppingCartRecyc
                 startActivityForResult(newCart, LAUNCH_NEW_CART_ACTIVITY);
             }
         });
-
-        myRecyclerView = findViewById(R.id.cartRecyclerView);
     }
 
+    /**
+     * An observer that listens for changes and notifies the adapter so that the recycler view can be adjusted
+     */
     Observer<ArrayList<Cart>> cartUpdateObserver = new Observer<ArrayList<Cart>>() {
         @Override
         public void onChanged(ArrayList<Cart> cartArrayList) {
@@ -72,12 +77,15 @@ public class HomeActivity extends AppCompatActivity implements ShoppingCartRecyc
                 viewModel.updateOrCreateCartList(myCartList, shoppingCart);
             }
         }
-        // TODO correct implemented error handling
         if (resultCode == Activity.RESULT_CANCELED) {
             System.out.println("An Error has occured!");
         }
     }
 
+    /**
+     * OnClick function to open a new activity that contains the information about the shopping cart and can be edited on it
+     * @param position adapter position to know which shopping cart information should be provided by the array
+     */
     @Override
     public void onCartClick(int position) {
         Intent onCartClick = new Intent(this, NewCartActivity.class);
@@ -85,6 +93,10 @@ public class HomeActivity extends AppCompatActivity implements ShoppingCartRecyc
         startActivityForResult(onCartClick, LAUNCH_NEW_CART_ACTIVITY);
     }
 
+    /**
+     * OnClick function for deleting a cart from the list
+     * @param position adapter position to know at which position in the array the cart should be deleted
+     */
     @Override
     public void onCanClick(int position) {
         Cart c = myCartList.get(position);

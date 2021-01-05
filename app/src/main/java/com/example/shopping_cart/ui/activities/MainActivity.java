@@ -10,13 +10,13 @@ import com.example.shopping_cart.R;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static int WELCOME_TIME_OUT = 2000;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Delay handler for having a splash screen for 2 seconds
+        int WELCOME_TIME_OUT = 2000;
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {

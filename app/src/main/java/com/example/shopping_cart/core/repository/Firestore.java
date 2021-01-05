@@ -21,6 +21,10 @@ import static android.content.ContentValues.TAG;
 public class Firestore {
     FirebaseFirestore firestoreDatabase = FirebaseFirestore.getInstance();
 
+    /**
+     * Adding shopping carts to the cloud under the collection "carts". The name of the document is set as the name of the shopping cart.
+     * @param cart the cart to be stored in cloud firestore
+     */
     public void addCartToFirestore(Cart cart) {
         firestoreDatabase.collection("carts").document(cart.name)
                 .set(cart)
@@ -39,6 +43,10 @@ public class Firestore {
                 });
     }
 
+    /**
+     * Adding products to the cloud under the collection "products". The name of the document is set as the name of the product.
+     * @param product the product to be stored in cloud firestore
+     */
     public void addProductToFirestore(Product product) {
         firestoreDatabase.collection("products").document(product.name)
                 .set(product)
@@ -57,6 +65,11 @@ public class Firestore {
                 });
     }
 
+    /**
+     * Loading of all shopping carts from the cloud to display them in the app
+     * @param callbackOnRead callback function to return the results when they are needed
+     * @param localCarts array to cache the data from the database locally
+     */
     public void gettingCartsFromFirestore(final OnReadCartsComplete callbackOnRead, final ArrayList<Cart> localCarts) {
         final ArrayList<Cart> allCartsFromDatabase = new ArrayList<>();
         firestoreDatabase.collection("carts").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -72,6 +85,11 @@ public class Firestore {
         });
     }
 
+    /**
+     * Loading of all products from the cloud to display them in the app
+     * @param callbackOnRead callback function to return the results when they are needed
+     * @param localProducts array to cache the data from the database locally
+     */
     public void gettingProductsFromFirestore(final OnReadProductsComplete callbackOnRead, final ArrayList<Product> localProducts) {
         final ArrayList<Product> allProductsFromDatabase = new ArrayList<>();
         firestoreDatabase.collection("products").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -87,6 +105,10 @@ public class Firestore {
         });
     }
 
+    /**
+     * Delete a shopping cart from the cloud
+     * @param cartName cart to be deleted
+     */
     public void deleteDataFromFirestore(String cartName) {
         firestoreDatabase.collection("carts").document(cartName)
                 .delete()
@@ -104,11 +126,16 @@ public class Firestore {
                 });
     }
 
-    // Callback methods declared
+    /**
+     * Interface declaration for the cart callback method
+     */
     public interface OnReadCartsComplete {
         void getCartData(ArrayList<Cart> databaseCarts, ArrayList<Cart> localCarts);
     }
 
+    /**
+     * Interface declaration for the product callback method
+     */
     public interface OnReadProductsComplete {
         void getProductData(ArrayList<Product> databaseProducts, ArrayList<Product> localProducts);
     }

@@ -27,8 +27,11 @@ public class ProductListRecyclerViewAdapter extends RecyclerView.Adapter<Product
         this.onCanClickListener = onCanClickListener;
     }
 
+    /**
+     * Provides a reference to the type of views that are used
+     */
     public static class myViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        TextView productName, productWeight, productNutrition;
+        TextView productName, productWeight, productUnit;
         ImageView deleteCan;
         OnCanClickListener canClickListener;
 
@@ -36,7 +39,7 @@ public class ProductListRecyclerViewAdapter extends RecyclerView.Adapter<Product
             super(view);
             productName = view.findViewById(R.id.new_product_name);
             productWeight = view.findViewById(R.id.new_product_weight);
-            productNutrition = view.findViewById(R.id.new_product_nutrition);
+            productUnit = view.findViewById(R.id.new_product_unit);
             deleteCan = view.findViewById(R.id.deleteProductImage);
 
             canClickListener = onCanClickListener;
@@ -49,29 +52,40 @@ public class ProductListRecyclerViewAdapter extends RecyclerView.Adapter<Product
         }
     }
 
-    // Create new views (invoked by the layout manager)
+    // Creates new views invoked by the layout manager
     @NonNull
     @Override
     public ProductListRecyclerViewAdapter.myViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
-        // baut custom layout shopping_cart_list_item.xml und bau damit die view zusammen
+        // Creates a new view which defines the UI of the product_list_item
         View view = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.product_list_item, viewGroup, false);
 
         return new myViewHolder(view, onCanClickListener);
     }
 
+    /**
+     * Replaces the content of a view invoked by the layout manager
+     * @param viewHolder individual element in the list defined by myViewHolder object
+     * @param position gets data from the dataset to set the text for the view
+     */
     @Override
     public void onBindViewHolder(myViewHolder viewHolder, final int position) {
         viewHolder.productName.setText(myDataSet.get(position).name);
         viewHolder.productWeight.setText(myDataSet.get(position).weight);
-        viewHolder.productNutrition.setText(myDataSet.get(position).nutrition);
+        viewHolder.productUnit.setText(myDataSet.get(position).unit);
     }
 
+    /**
+     * @return size of the dataset invoked by the layout manager
+     */
     @Override
     public int getItemCount() {
         return myDataSet.size();
     }
 
+    /**
+     * Interface for deleting by clicking the can icon
+     */
     public interface OnCanClickListener {
         void onCanClick(int position);
     }

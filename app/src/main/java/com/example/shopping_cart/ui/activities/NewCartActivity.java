@@ -47,7 +47,6 @@ public class NewCartActivity extends AppCompatActivity implements ProductListRec
         abort = findViewById(R.id.abort_button);
         showProductList = findViewById(R.id.open_product_list_button);
 
-        // Recycler View for product list
         myRecyclerView = findViewById(R.id.product_recycler_view);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         myRecyclerView.setLayoutManager(layoutManager);
@@ -55,6 +54,7 @@ public class NewCartActivity extends AppCompatActivity implements ProductListRec
         myAdapter = new ProductListRecyclerViewAdapter(this, myProductList, this);
         myRecyclerView.setAdapter(myAdapter);
 
+        // Fills the activity with information of a shopping cart when the extra is not empty
         if (getIntent().getSerializableExtra("selectedCart") != null) {
             Cart selected = (Cart) getIntent().getSerializableExtra("selectedCart");
             cartNameInput.setText(selected.name);
@@ -64,14 +64,17 @@ public class NewCartActivity extends AppCompatActivity implements ProductListRec
         addNewProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // After problems with the popupWindow, I switched to an AlertDialog
+                // A window that overlays the activity and allows the input of information
                 AlertDialog.Builder builder = new AlertDialog.Builder(NewCartActivity.this);
                 final View newProductView = getLayoutInflater().inflate(R.layout.new_product, null);
                 builder.setTitle(getResources().getString(R.string.add_new_product));
 
-                final Spinner nutritionSpinner = newProductView.findViewById(R.id.nutrition_spinner);
-                ArrayAdapter<String> adapter = new ArrayAdapter<>(NewCartActivity.this, android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.nutritions_array));
+                // Dropdown to select the unit
+                final Spinner unitSpinner = newProductView.findViewById(R.id.unit_spinner);
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(NewCartActivity.this, android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.unit_array));
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                nutritionSpinner.setAdapter(adapter);
+                unitSpinner.setAdapter(adapter);
 
                 builder.setView(newProductView);
 
@@ -81,13 +84,14 @@ public class NewCartActivity extends AppCompatActivity implements ProductListRec
                         EditText productName = newProductView.findViewById(R.id.product_name);
                         EditText productWeight = newProductView.findViewById(R.id.product_weight);
 
-                        if (!nutritionSpinner.getSelectedItem().toString().equalsIgnoreCase(getResources().getString(R.string.select_unit)) &&
+                        // Verification that all information has been filled in. Otherwise another dialog appears with an error message
+                        if (!unitSpinner.getSelectedItem().toString().equalsIgnoreCase(getResources().getString(R.string.select_unit)) &&
                                 !productName.getText().toString().equalsIgnoreCase("") &&
                                 !productWeight.getText().toString().equalsIgnoreCase("")) {
                             Product product = new Product();
                             product.name = productName.getText().toString();
                             product.weight = productWeight.getText().toString();
-                            product.nutrition = nutritionSpinner.getSelectedItem().toString();
+                            product.unit = unitSpinner.getSelectedItem().toString();
 
                             myProductList.add(product);
                             myAdapter.notifyDataSetChanged();
@@ -107,7 +111,7 @@ public class NewCartActivity extends AppCompatActivity implements ProductListRec
                         }
                     }
                 });
-
+                // Clicking on "Zurück" closes the dialog without saving it
                 builder.setNegativeButton(getResources().getString(R.string.back), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -120,6 +124,7 @@ public class NewCartActivity extends AppCompatActivity implements ProductListRec
             }
         });
 
+        // Opens onClick the acitvity with already bought products
         showProductList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -128,12 +133,13 @@ public class NewCartActivity extends AppCompatActivity implements ProductListRec
             }
         });
 
+        // Saves all changes and goes back to the HomeActivity.class
         saveAndBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Cart newCart = new Cart();
-                ArrayList<Product> products = new ArrayList<>();
-                if(getIntent().getSerializableExtra("selectedCart") != null) {
+                ArrayList<Product> products;
+                if (getIntent().getSerializableExtra("selectedCart") != null) {
                     Cart selectedCart = (Cart) getIntent().getSerializableExtra("selectedCart");
                     newCart.cartID = selectedCart.cartID;
                 } else {
@@ -155,6 +161,7 @@ public class NewCartActivity extends AppCompatActivity implements ProductListRec
             }
         });
 
+        // Goes back to the HomeActivity.class immediately without saving changes
         abort.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -169,15 +176,19 @@ public class NewCartActivity extends AppCompatActivity implements ProductListRec
 
         if (requestCode == LAUNCH_OLD_PRODUCT_LIST_ACTIVITY) {
             if (resultCode == Activity.RESULT_OK) {
-
+                // TODO activity on result!!
+                System.out.println("OK");
             }
         }
-        // TODO error handling
         if (resultCode == Activity.RESULT_CANCELED) {
             System.out.println("Error while starting old product list activity");
         }
     }
 
+    /**
+     * OnClick function for deleting a product from the list
+     * @param position adapter position to know at which position in the array the product should be deleted
+     */
     @Override
     public void onCanClick(int position) {
         Product p = myProductList.get(position);

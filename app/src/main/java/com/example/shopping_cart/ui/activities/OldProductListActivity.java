@@ -39,7 +39,7 @@ public class OldProductListActivity extends AppCompatActivity {
         viewModel.getProductLiveData().observe(this, productUpdateObserver);
         viewModel.fetchAllProducts(myProductList);
 
-        myRecyclerView = findViewById(R.id.recyclerView);
+        myRecyclerView = findViewById(R.id.old_product_recycler_view);
 
         abort.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,9 +49,12 @@ public class OldProductListActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * An observer that listens for changes and notifies the adapter so that the recycler view can be adjusted
+     */
     Observer<ArrayList<Product>> productUpdateObserver = new Observer<ArrayList<Product>>() {
         @Override
-        public void onChanged(ArrayList<Product> cartArrayList) {
+        public void onChanged(ArrayList<Product> productArrayList) {
             myAdapter = new OldProductListRecyclerViewAdapter(context, myProductList);
             myRecyclerView.setLayoutManager(new LinearLayoutManager(OldProductListActivity.this));
             myRecyclerView.setAdapter(myAdapter);

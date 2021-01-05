@@ -29,6 +29,9 @@ public class ShoppingCartRecyclerViewAdapter extends RecyclerView.Adapter<Shoppi
         onCanClickListener = onCanListener;
     }
 
+    /**
+     * Provides a reference to the type of views that are used
+     */
     public static class myViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView cartName;
         ImageView deleteCan;
@@ -46,6 +49,9 @@ public class ShoppingCartRecyclerViewAdapter extends RecyclerView.Adapter<Shoppi
             cartName.setOnClickListener(this);
         }
 
+        /** OnClick function with distinction of what was clicked on
+         * @param v current view clicked on
+         */
         @Override
         public void onClick(View v) {
             if(v == cartName) {
@@ -56,7 +62,7 @@ public class ShoppingCartRecyclerViewAdapter extends RecyclerView.Adapter<Shoppi
         }
     }
 
-    // Create new views (invoked by the layout manager)
+    // Creates new views invoked by the layout manager
     @NonNull
     @Override
     public ShoppingCartRecyclerViewAdapter.myViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
@@ -67,21 +73,34 @@ public class ShoppingCartRecyclerViewAdapter extends RecyclerView.Adapter<Shoppi
         return new myViewHolder(view, onCartClickListener, onCanClickListener);
     }
 
+    /**
+     * Replaces the content of a view invoked by the layout manager
+     * @param viewHolder individual element in the list defined by myViewHolder object
+     * @param position gets data from the dataset to set the text for the view
+     */
     @Override
     public void onBindViewHolder(myViewHolder viewHolder, final int position) {
         viewHolder.cartName.setText(myDataSet.get(position).name);
     }
 
+    /**
+     * @return size of the dataset invoked by the layout manager
+     */
     @Override
     public int getItemCount() {
         return myDataSet.size();
     }
 
-
+    /**
+     * Interface for clicking the cart name
+     */
     public interface OnCartClickListener {
         void onCartClick(int position);
     }
 
+    /**
+     * Interface for deleting by clicking the can icon
+     */
     public interface OnCanClickListener {
         void onCanClick(int position);
     }
