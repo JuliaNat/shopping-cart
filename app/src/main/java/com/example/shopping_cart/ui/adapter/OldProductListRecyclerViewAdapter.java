@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 
 public class OldProductListRecyclerViewAdapter extends RecyclerView.Adapter<OldProductListRecyclerViewAdapter.myViewHolder> {
     private ArrayList<Product> myDataSet;
+    public ArrayList<Product> checkedProducts = new ArrayList<>();
     Context context;
 
     public OldProductListRecyclerViewAdapter(Context cntx, ArrayList<Product> prdct) {
@@ -58,10 +60,27 @@ public class OldProductListRecyclerViewAdapter extends RecyclerView.Adapter<OldP
      * @param position gets data from the dataset to set the text for the view
      */
     @Override
-    public void onBindViewHolder(myViewHolder viewHolder, final int position) {
+    public void onBindViewHolder(final myViewHolder viewHolder, final int position) {
         viewHolder.oldProductName.setText(myDataSet.get(position).name);
         viewHolder.oldProductWeight.setText(myDataSet.get(position).weight);
         viewHolder.oldProductUnit.setText(myDataSet.get(position).unit);
+
+
+        viewHolder.productSelected.setOnCheckedChangeListener(null);
+        viewHolder.productSelected.setChecked(myDataSet.get(position).isChecked);
+        viewHolder.productSelected.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                // Jedes mal bei drücken nochmal neu setzen, da sich sonst UI nicht aktualisiert
+                myDataSet.get(position).setChecked(isChecked);
+                viewHolder.productSelected.setChecked(myDataSet.get(position).isChecked);
+               if (isChecked) {
+                    checkedProducts.add(myDataSet.get(position));
+                } else if (checkedProducts.contains(myDataSet.get(position))) {
+                    checkedProducts.remove(myDataSet.get(position));
+                }
+            }
+        });
     }
 
     /**
@@ -70,5 +89,9 @@ public class OldProductListRecyclerViewAdapter extends RecyclerView.Adapter<OldP
     @Override
     public int getItemCount() {
         return myDataSet.size();
+    }
+
+    public ArrayList<Product> getCheckedProducts() {
+        return checkedProducts;
     }
 }

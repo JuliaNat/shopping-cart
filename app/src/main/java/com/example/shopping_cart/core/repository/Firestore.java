@@ -67,7 +67,7 @@ public class Firestore {
 
     /**
      * Loading of all shopping carts from the cloud to display them in the app
-     * @param callbackOnRead callback function to return the results when they are needed
+     * @param callbackOnRead callback function to return the results when they are retrieved
      * @param localCarts array to cache the data from the database locally
      */
     public void gettingCartsFromFirestore(final OnReadCartsComplete callbackOnRead, final ArrayList<Cart> localCarts) {

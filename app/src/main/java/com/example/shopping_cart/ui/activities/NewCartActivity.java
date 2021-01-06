@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 public class NewCartActivity extends AppCompatActivity implements ProductListRecyclerViewAdapter.OnCanClickListener {
-    int LAUNCH_OLD_PRODUCT_LIST_ACTIVITY = 1;
+    int LAUNCH_OLD_PRODUCT_LIST_ACTIVITY = 2;
     Button addNewProduct, saveAndBack, abort, showProductList;
     EditText cartNameInput;
 
@@ -176,8 +176,8 @@ public class NewCartActivity extends AppCompatActivity implements ProductListRec
 
         if (requestCode == LAUNCH_OLD_PRODUCT_LIST_ACTIVITY) {
             if (resultCode == Activity.RESULT_OK) {
-                // TODO activity on result!!
-                System.out.println("OK");
+                myProductList.addAll((ArrayList<Product>) data.getSerializableExtra("checkedProducts"));
+                myAdapter.notifyDataSetChanged();
             }
         }
         if (resultCode == Activity.RESULT_CANCELED) {

@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 public class Product implements Serializable {
     public String name, unit, weight;
+    public boolean isChecked;
 
     public String getName() {
         return name;
@@ -27,5 +28,13 @@ public class Product implements Serializable {
 
     public void setWeight(String weight) {
         this.weight = weight;
+    }
+
+    public Boolean getChecked() {
+        return isChecked;
+    }
+
+    public void setChecked(Boolean checked) {
+        isChecked = checked;
     }
 }

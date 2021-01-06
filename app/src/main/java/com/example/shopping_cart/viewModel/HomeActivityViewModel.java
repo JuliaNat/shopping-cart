@@ -8,8 +8,6 @@ import com.example.shopping_cart.core.repository.Firestore;
 
 import java.util.ArrayList;
 
-// import com.example.shopping_cart.core.repository.Firebase;
-
 public class HomeActivityViewModel extends ViewModel implements Firestore.OnReadCartsComplete {
     Firestore firestore = new Firestore();
     ArrayList<Cart> allCartsFromDatabase = new ArrayList<>();
@@ -24,8 +22,7 @@ public class HomeActivityViewModel extends ViewModel implements Firestore.OnRead
 
 
     /**
-     * For observing changes and updating afterwards
-     *
+     * For observing changes and updating afterwards. Receiving the live data.
      * @return list of carts
      */
     public MutableLiveData<ArrayList<Cart>> getCartLiveData() {

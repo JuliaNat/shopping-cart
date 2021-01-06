@@ -1,5 +1,6 @@
 package com.example.shopping_cart.ui.activities;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,36 +22,53 @@ import java.util.ArrayList;
 
 public class OldProductListActivity extends AppCompatActivity {
     Context context;
-    Button abort;
+    Button abort, saveAndBack;
     RecyclerView myRecyclerView;
     ArrayList<Product> myProductList = new ArrayList<>();
 
     OldProductListRecyclerViewAdapter myAdapter;
     OldProductListActivityViewModel viewModel;
 
+    /**
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_old_product_list);
         context = this;
+
+        // For every UI component a java object
         abort = findViewById(R.id.abort_button);
+        saveAndBack = findViewById(R.id.save_and_back_button);
+        myRecyclerView = findViewById(R.id.old_product_recycler_view);
 
         viewModel = ViewModelProviders.of(this).get(OldProductListActivityViewModel.class);
         viewModel.getProductLiveData().observe(this, productUpdateObserver);
         viewModel.fetchAllProducts(myProductList);
 
-        myRecyclerView = findViewById(R.id.old_product_recycler_view);
+        saveAndBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent backToCart = new Intent(OldProductListActivity.this, NewCartActivity.class);
+                backToCart.putExtra("checkedProducts", myAdapter.getCheckedProducts());
+                setResult(RESULT_OK, backToCart);
+                finish();
+            }
+        });
 
         abort.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(OldProductListActivity.this, NewCartActivity.class));
+                Intent backToCart = new Intent();
+                setResult(Activity.RESULT_CANCELED, backToCart);
+                finish();
             }
         });
     }
 
     /**
-     * An observer that listens for changes and notifies the adapter so that the recycler view can be adjusted
+     * An observer that listens for changes and creates a new adapter so that the recycler view can be adjusted
      */
     Observer<ArrayList<Product>> productUpdateObserver = new Observer<ArrayList<Product>>() {
         @Override
