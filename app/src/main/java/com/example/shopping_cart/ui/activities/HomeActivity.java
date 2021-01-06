@@ -30,18 +30,24 @@ public class HomeActivity extends AppCompatActivity implements ShoppingCartRecyc
     HomeActivityViewModel viewModel;
     ShoppingCartRecyclerViewAdapter myAdapter;
 
+    /**
+     * Called when the activity is starting
+     * @param savedInstanceState If the activity is being re-initialized after previously being shut down then this Bundle contains the data it most recently supplied in onSaveInstanceState(Bundle)
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
         context = this;
+
+        // For every UI component a java object
+        setContentView(R.layout.activity_home);
+        myRecyclerView = findViewById(R.id.cart_recycler_view);
 
         // ViewModelProviders depricated!
         viewModel = ViewModelProviders.of(this).get(HomeActivityViewModel.class);
         viewModel.getCartLiveData().observe(this, cartUpdateObserver);
         viewModel.fetchAllCarts(myCartList);
 
-        myRecyclerView = findViewById(R.id.cart_recycler_view);
 
         // OnClickListener which opens a new activity to create a new cart
         Button createNewCart = findViewById(R.id.new_cart_button);
@@ -66,6 +72,12 @@ public class HomeActivity extends AppCompatActivity implements ShoppingCartRecyc
         }
     };
 
+    /**
+     * What is executed when returning to this activity
+     * @param requestCode Value checked with the one passed with startActivityForResult
+     * @param resultCode Says something about what the result looks like, whether it was successful or not
+     * @param data Data supplied via the Intent
+     */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

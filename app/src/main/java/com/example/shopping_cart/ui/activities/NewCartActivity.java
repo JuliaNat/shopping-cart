@@ -36,21 +36,28 @@ public class NewCartActivity extends AppCompatActivity implements ProductListRec
     ArrayList<Product> myProductList = new ArrayList<>();
     NewCartActivityViewModel viewModel = new NewCartActivityViewModel();
 
+    /**
+     * Called when the activity is starting
+     * @param savedInstanceState If the activity is being re-initialized after previously being shut down then this Bundle contains the data it most recently supplied in onSaveInstanceState(Bundle)
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_cart);
 
+        // For every UI component a java object
         cartNameInput = findViewById(R.id.cart_name_input);
         addNewProduct = findViewById(R.id.add_product_button);
         saveAndBack = findViewById(R.id.save_and_back_button);
         abort = findViewById(R.id.abort_button);
         showProductList = findViewById(R.id.open_product_list_button);
 
+        // Setting up recycler view
         myRecyclerView = findViewById(R.id.product_recycler_view);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         myRecyclerView.setLayoutManager(layoutManager);
 
+        // Setting up recycler view adapter
         myAdapter = new ProductListRecyclerViewAdapter(this, myProductList, this);
         myRecyclerView.setAdapter(myAdapter);
 
@@ -170,6 +177,12 @@ public class NewCartActivity extends AppCompatActivity implements ProductListRec
         });
     }
 
+    /**
+     * What is executed when returning to this activity
+     * @param requestCode Value checked with the one passed with startActivityForResult
+     * @param resultCode Says something about what the result looks like, whether it was successful or not
+     * @param data Data supplied via the Intent
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

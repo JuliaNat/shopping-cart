@@ -18,7 +18,6 @@ import java.util.ArrayList;
 public class ProductListRecyclerViewAdapter extends RecyclerView.Adapter<ProductListRecyclerViewAdapter.myViewHolder> {
     private ArrayList<Product> myDataSet;
     Context context;
-
     OnCanClickListener onCanClickListener;
 
     public ProductListRecyclerViewAdapter(Context cntx, ArrayList<Product> prdct, OnCanClickListener onCanClickListener){
@@ -37,6 +36,7 @@ public class ProductListRecyclerViewAdapter extends RecyclerView.Adapter<Product
 
         public myViewHolder(@NonNull View view, OnCanClickListener onCanClickListener) {
             super(view);
+            // For every UI component a java object
             productName = view.findViewById(R.id.new_product_name);
             productWeight = view.findViewById(R.id.new_product_weight);
             productUnit = view.findViewById(R.id.new_product_unit);
@@ -46,6 +46,10 @@ public class ProductListRecyclerViewAdapter extends RecyclerView.Adapter<Product
             deleteCan.setOnClickListener(this);
         }
 
+        /**
+         * Deletes selected product on adapter position
+         * @param v where is clicked in the view
+         */
         @Override
         public void onClick(View v) {
             canClickListener.onCanClick(getAdapterPosition());

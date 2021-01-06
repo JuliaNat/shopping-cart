@@ -30,13 +30,14 @@ public class OldProductListActivity extends AppCompatActivity {
     OldProductListActivityViewModel viewModel;
 
     /**
-     * @param savedInstanceState
+     * Called when the activity is starting
+     * @param savedInstanceState If the activity is being re-initialized after previously being shut down then this Bundle contains the data it most recently supplied in onSaveInstanceState(Bundle)
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_old_product_list);
         context = this;
+        setContentView(R.layout.activity_old_product_list);
 
         // For every UI component a java object
         abort = findViewById(R.id.abort_button);
@@ -47,6 +48,7 @@ public class OldProductListActivity extends AppCompatActivity {
         viewModel.getProductLiveData().observe(this, productUpdateObserver);
         viewModel.fetchAllProducts(myProductList);
 
+        // Sends selected products back to the NewCartActivity to add them to a cart
         saveAndBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -57,6 +59,7 @@ public class OldProductListActivity extends AppCompatActivity {
             }
         });
 
+        // ends activity and goes back to the previous one
         abort.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -68,7 +71,7 @@ public class OldProductListActivity extends AppCompatActivity {
     }
 
     /**
-     * An observer that listens for changes and creates a new adapter so that the recycler view can be adjusted
+     * An observer that listens for changes and notifies the adapter so that the recycler view can be adjusted
      */
     Observer<ArrayList<Product>> productUpdateObserver = new Observer<ArrayList<Product>>() {
         @Override

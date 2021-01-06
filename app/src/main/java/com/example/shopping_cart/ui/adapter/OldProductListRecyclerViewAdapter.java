@@ -35,6 +35,7 @@ public class OldProductListRecyclerViewAdapter extends RecyclerView.Adapter<OldP
 
         public myViewHolder(@NonNull View view) {
             super(view);
+            // For every UI component a java object
             oldProductName = view.findViewById(R.id.old_product_name);
             oldProductWeight = view.findViewById(R.id.old_product_weight);
             oldProductUnit = view.findViewById(R.id.old_product_unit);

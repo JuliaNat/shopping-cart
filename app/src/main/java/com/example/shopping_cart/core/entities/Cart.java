@@ -8,12 +8,12 @@ public class Cart implements Serializable {
     public String name;
     public ArrayList<Product> cartProducts;
 
-    public ArrayList<Product> getCartProducts() {
-        return cartProducts;
+    public String getCartID() {
+        return cartID;
     }
 
-    public void setCartProducts(ArrayList<Product> cartProducts) {
-        this.cartProducts = cartProducts;
+    public void setCartID(String cartID) {
+        this.cartID = cartID;
     }
 
     public String getName() {
@@ -22,5 +22,13 @@ public class Cart implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public ArrayList<Product> getCartProducts() {
+        return cartProducts;
+    }
+
+    public void setCartProducts(ArrayList<Product> cartProducts) {
+        this.cartProducts = cartProducts;
     }
 }
