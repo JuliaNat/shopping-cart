@@ -70,9 +70,13 @@ public class OldProductListRecyclerViewAdapter extends RecyclerView.Adapter<OldP
         viewHolder.productSelected.setOnCheckedChangeListener(null);
         viewHolder.productSelected.setChecked(myDataSet.get(position).isChecked);
         viewHolder.productSelected.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            /**
+             * Called when the checked state of a compound button has changed
+             * @param buttonView The compound button view whose state has changed
+             * @param isChecked The new checked state of buttonView
+             */
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                // Jedes mal bei drücken nochmal neu setzen, da sich sonst UI nicht aktualisiert
                 myDataSet.get(position).setChecked(isChecked);
                 viewHolder.productSelected.setChecked(myDataSet.get(position).isChecked);
                if (isChecked) {

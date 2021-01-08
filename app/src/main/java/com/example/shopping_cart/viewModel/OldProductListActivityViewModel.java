@@ -55,4 +55,14 @@ public class OldProductListActivityViewModel extends ViewModel implements Firest
         productLiveData.setValue(allProductsFromDatabase);
     }
 
+    /**
+     * Update product list in database with overwriting them
+     * @param products product to be stored in the cloud
+     */
+    public void writeProductsInDatabase(ArrayList<Product> products) {
+        for (Product product:products) {
+            firestore.addProductToFirestore(product);
+        }
+    }
+
 }
