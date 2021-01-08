@@ -52,10 +52,9 @@ public class OldProductListActivity extends AppCompatActivity {
         saveAndBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ArrayList<Product> checkedProducts = new ArrayList<>();
                 Intent backToCart = new Intent(OldProductListActivity.this, NewCartActivity.class);
                 backToCart.putExtra("checkedProducts", myAdapter.getCheckedProducts());
-                checkedProducts.addAll(myAdapter.getCheckedProducts());
+                ArrayList<Product> checkedProducts = new ArrayList<>(myAdapter.getCheckedProducts());
                 // all isChecked back to false
                 for(Product p:checkedProducts) {
                     p.setChecked(false);
