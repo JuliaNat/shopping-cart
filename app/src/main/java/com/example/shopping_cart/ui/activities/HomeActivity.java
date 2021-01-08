@@ -111,9 +111,9 @@ public class HomeActivity extends AppCompatActivity implements ShoppingCartRecyc
      */
     @Override
     public void onCanClick(int position) {
-        Cart c = myCartList.get(position);
-        myCartList.remove(c);
-        viewModel.deleteCartFromDatabase(c.name);
+        Cart currentCart = myCartList.get(position);
+        myCartList.remove(currentCart);
+        viewModel.deleteCartFromDatabase(currentCart.cartID);
         myAdapter.notifyDataSetChanged();
     }
 }

@@ -58,10 +58,10 @@ public class HomeActivityViewModel extends ViewModel implements Firestore.OnRead
     /**
      * Communication channel between activity and cloud
      *
-     * @param cartName which cart is to be deleted
+     * @param cartId which cart is to be deleted
      */
-    public void deleteCartFromDatabase(String cartName) {
-        firestore.deleteDataFromFirestore(cartName);
+    public void deleteCartFromDatabase(String cartId) {
+        firestore.deleteDataFromFirestore(cartId);
     }
 
     /**

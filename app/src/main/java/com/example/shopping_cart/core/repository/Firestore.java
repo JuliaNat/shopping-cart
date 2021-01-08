@@ -22,11 +22,11 @@ public class Firestore {
     FirebaseFirestore firestoreDatabase = FirebaseFirestore.getInstance();
 
     /**
-     * Adding shopping carts to the cloud under the collection "carts". The name of the document is set as the name of the shopping cart.
+     * Adding shopping carts to the cloud under the collection "carts". The name of the document is set as the id of the shopping cart.
      * @param cart the cart to be stored in cloud firestore
      */
     public void addCartToFirestore(Cart cart) {
-        firestoreDatabase.collection("carts").document(cart.name)
+        firestoreDatabase.collection("carts").document(cart.cartID)
                 .set(cart)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
@@ -107,10 +107,10 @@ public class Firestore {
 
     /**
      * Delete a shopping cart from the cloud
-     * @param cartName cart to be deleted
+     * @param cartId cart to be deleted
      */
-    public void deleteDataFromFirestore(String cartName) {
-        firestoreDatabase.collection("carts").document(cartName)
+    public void deleteDataFromFirestore(String cartId) {
+        firestoreDatabase.collection("carts").document(cartId)
                 .delete()
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
