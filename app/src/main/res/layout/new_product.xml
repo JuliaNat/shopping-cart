@@ -20,6 +20,7 @@
         android:layout_width="245dp"
         android:layout_height="55dp"
         android:layout_marginTop="28dp"
+        android:inputType="numberDecimal"
         android:hint="@string/ten"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
