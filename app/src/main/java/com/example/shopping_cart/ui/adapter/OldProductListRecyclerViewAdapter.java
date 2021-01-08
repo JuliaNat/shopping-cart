@@ -66,7 +66,6 @@ public class OldProductListRecyclerViewAdapter extends RecyclerView.Adapter<OldP
         viewHolder.oldProductWeight.setText(myDataSet.get(position).weight);
         viewHolder.oldProductUnit.setText(myDataSet.get(position).unit);
 
-
         viewHolder.productSelected.setOnCheckedChangeListener(null);
         viewHolder.productSelected.setChecked(myDataSet.get(position).isChecked);
         viewHolder.productSelected.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

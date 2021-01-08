@@ -15,7 +15,6 @@
     <string name="ok">OK</string>
     <string name="back">ZURÜCK</string>
     <string name="delete">Löschen</string>
-    <string name="checked">Abgehakt</string>
     <string name="delete_button_desc">Löschen button</string>
     <string name="show_old_products">Bereits gekaufte Artikel anzeigen</string>
     <string name="all_information_needed">Bitte füllen Sie alle Felder aus</string>
@@ -29,6 +28,7 @@
         <item>Kilogramm</item>
         <item>Gramm</item>
         <item>Stück</item>
+        <item>Packung(en)</item>
         <item>Liter</item>
         <item>Milliliter</item>
     </string-array>
